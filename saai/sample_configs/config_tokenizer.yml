@@ -1,0 +1,10 @@
+language: zh
+pipeline:
+- name: "saai.multilang_tokenizer.MultilangTokenizer"
+  lang: "zh"
+- name: "DucklingHTTPExtractor"
+  url: "http://duckling:8000"
+  dimensions:
+  - "NUMBER"
+
+data:

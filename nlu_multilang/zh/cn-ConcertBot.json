@@ -1,0 +1,98 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "text": "你好",
+        "intent": "greet",
+        "entities": []
+      },
+      {
+        "text": "今天天气不错",
+        "intent": "greet",
+        "entities": []
+      },
+      {
+        "text": "很高兴认识你",
+        "intent": "greet",
+        "entities": []
+      },
+      {
+        "text": "大家好",
+        "intent": "greet",
+        "entities": []
+      },
+      {
+        "text": "谢谢",
+        "intent": "thankyou",
+        "entities": []
+      },
+      {
+        "text": "感谢",
+        "intent": "thankyou",
+        "entities": []
+      },
+      {
+        "text": "谢谢你",
+        "intent": "thankyou",
+        "entities": []
+      },
+      {
+        "text": "再见",
+        "intent": "goodbye",
+        "entities": []
+      },
+      {
+        "text": "再会",
+        "intent": "goodbye",
+        "entities": []
+      },
+      {
+        "text": "明天见",
+        "intent": "goodbye",
+        "entities": []
+      },
+      {
+        "text": "我想找音乐会",
+        "intent": "search_concerts",
+        "entities": [
+          {
+            "start": 3,
+            "end": 6,
+            "value": "音乐会",
+            "entity": "place"
+          }
+        ]
+      },
+      {
+        "text": "演唱会",
+        "intent": "search_concerts",
+        "entities": []
+      },
+      {
+        "text": "场地在哪儿",
+        "intent": "search_venues",
+        "entities": []
+      },
+      {
+        "text": "场馆在哪儿",
+        "intent": "search_venues",
+        "entities": []
+      },
+      {
+        "text": "评价如何",
+        "intent": "compare_reviews",
+        "entities": []
+      },
+      {
+        "text": "哪个好",
+        "intent": "compare_reviews",
+        "entities": []
+      },
+      {
+        "text": "我应该选择哪个",
+        "intent": "compare_reviews",
+        "entities": []
+      }
+    ]
+  }
+}

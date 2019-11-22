@@ -1,0 +1,11 @@
+language: "ja"
+
+pipeline:
+- name: "saai.multilang_tokenizer.MultilangTokenizer"
+  lang: "ja"
+- name: "RegexFeaturizer"
+- name: "CRFEntityExtractor"
+- name: "EntitySynonymMapper"
+- name: "CountVectorsFeaturizer"
+- name: "EmbeddingIntentClassifier"
+

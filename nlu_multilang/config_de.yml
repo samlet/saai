@@ -1,0 +1,14 @@
+language: "de"
+
+pipeline:
+- name: "nlp_spacy"
+  model: de_core_news_sm
+- name: "tokenizer_spacy"
+- name: "ner_spacy"
+- name: "ner_crf"
+- name: "ner_synonyms"
+- name: "intent_featurizer_count_vectors"
+- name: "intent_classifier_tensorflow_embedding"
+- name: "ner_duckling_http"
+  locale: "de_Nothing"
+  url: "http://localhost:8000"

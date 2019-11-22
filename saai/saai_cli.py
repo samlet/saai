@@ -24,6 +24,16 @@ def testing_tokenizer(text, cls, lang='en'):
         print(token.text, token.offset)
 
 class SaaiCli(object):
+    def comps(self):
+        """
+        $ python -m saai.saai_cli comps
+        :return:
+        """
+        from rasa.nlu import config
+        conf = config.load('saai/sample_configs/config_tokenizer.yml')
+        # conf.for_component('DucklingHTTPExtractor')
+        return conf.component_names
+
     def tokens(self, text, lang):
         """
         $ python -m saai.saai_cli tokens "在终端上输出单词的定义和继承链" zh

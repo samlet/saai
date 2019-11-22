@@ -1,0 +1,31 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "text": "几台笔记本电脑",
+        "intent": "how_many",
+        "entities": []
+      },
+      {
+        "text": "几把伞",
+        "intent": "how_many",
+        "entities": []
+      },
+      {
+        "text": "几台电视机",
+        "intent": "how_many",
+        "entities": []
+      },
+      {
+        "text": "几个儿子",
+        "intent": "how_many",
+        "entities": []
+      },
+      {
+        "text": "几个孩子",
+        "intent": "how_many",
+        "entities": []
+      }
+    ]
+  }
+}

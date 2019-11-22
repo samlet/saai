@@ -1,0 +1,8 @@
+language: "ja"
+
+pipeline:
+- name: "sagas.ja.japanese_tokenizer.JapaneseTokenizer"
+- name: "ner_crf"
+- name: "ner_synonyms"
+- name: "intent_featurizer_count_vectors"
+- name: "intent_classifier_tensorflow_embedding"

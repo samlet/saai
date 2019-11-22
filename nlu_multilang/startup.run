@@ -1,0 +1,100 @@
+#!/bin/bash
+. /pi/bin/inc/wait_funcs.sh
+. /pi/bin/inc/matchers.sh
+. /pi/bin/inc/docker_utils.sh
+
+export PYTHONPATH=/pi/stack:..:$PYTHONPATH
+python="$HOME/miniconda3/envs/rasa/bin/python"
+rasa="$HOME/miniconda3/envs/rasa/bin/rasa"
+
+function start_inventory(){
+	# mysqld: ready for connections.
+	start_docker inventory "$msg_mysql"
+}
+
+function train(){
+	local lang=$1
+#	$python -m rasa_nlu.train \
+#		    --config config_${lang}.yml \
+#		    --data ${lang}/ \
+#		    --path projects \
+#		    --fixed_model_name current \
+#		    --project ${lang}
+    $rasa train nlu \
+		    --config config_${lang}.yml \
+		    --nlu ${lang}/ \
+		    --fixed-model-name ${lang}_current
+}
+
+# startup 
+if [ $# -lt 1 ]; then	
+	echo "available opts: all, zk, storm, repl, ..."
+else
+	CMD=$1
+	case "$CMD" in
+	"redis")
+		start_docker redis "$msg_redis"
+		;;
+	"clean")
+		rm -rf ./projects
+		;;
+	"nlu")
+		# $python -m rasa_nlu.server --path projects
+		# $rasa run --enable-api -m models/ja_current.tar.gz -p 2000
+		if [ $# -gt 1 ]; then	
+			lang=$2
+			$rasa run --enable-api -m models/${lang}_current.tar.gz -p 2000
+		else
+			echo "use: start nlu <lang>"
+		fi		
+		;;	
+	"train_de")
+		# $python -m rasa_nlu.train \
+		#     --config config_de.yml \
+		#     --data de/ \
+		#     --path projects \
+		#     --fixed_model_name current \
+		#     --project de
+		train de
+		;;
+	"train_zh")
+	    # $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/cn-Samples_issue.md zh/cn-Samples.json
+        # $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/cn-ConcertBot.md zh/cn-ConcertBot.json
+        $python -m saai.tools.corpus_procs gen_datasets cn 'zh/'
+        train zh
+	    ;;
+	"prepare_ja")
+	    $python -m saai.tools.corpus_procs gen_datasets ja 'ja/'
+	    ;;
+	"train_ja")
+	    # $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/ja-Samples.md ja/ja-Samples.json
+	    $python -m saai.tools.corpus_procs gen_datasets ja 'ja/'
+	    train ja
+	    ;;
+	"train")
+		if [ $# -gt 1 ]; then	
+			train $2
+		else
+			echo "use: start train <lang>"
+		fi
+		;;
+	"query_de")
+		curl -XPOST localhost:5000/parse -d '{"q":"Shenzhen ist das Silicon Valley für Hardware-Firmen", "project":"de", "model":"current"}'
+		;;
+	"query_ja")
+	    # curl -XPOST localhost:2000/model/parse -d '{"q":"卵を食べる", "project":"ja", "model":"current"}'
+	    curl localhost:2000/model/parse -d '{"text":"卵を食べる"}' | json
+	    ;;
+	"query_zh")
+	    # curl -XPOST localhost:5000/parse -d '{"q":"找地方吃饭", "project":"zh", "model":"current"}'
+	    curl -XPOST localhost:5000/parse -d '{"q":"几台电脑", "project":"zh", "model":"current"}'
+	    # curl -XPOST localhost:5000/parse -d '{"q":"几台笔记本电脑", "project":"zh", "model":"current"}'
+	    # curl -XPOST localhost:5000/parse -d '{"q":"几把伞", "project":"zh", "model":"current"}'
+	    ;;
+	*)
+		# default proc
+		handle_cmd ${@:1}
+		;;
+	esac
+fi
+

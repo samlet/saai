@@ -1,0 +1,79 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "text": "こんにちは",
+        "intent": "hello",
+        "entities": []
+      },
+      {
+        "text": "はじめまして",
+        "intent": "hello",
+        "entities": []
+      },
+      {
+        "text": "ようこそ",
+        "intent": "hello",
+        "entities": []
+      },
+      {
+        "text": "さようなら",
+        "intent": "farewell",
+        "entities": []
+      },
+      {
+        "text": "またね",
+        "intent": "farewell",
+        "entities": []
+      },
+      {
+        "text": "あなたのカレーを半分ください。",
+        "intent": "restaurant",
+        "entities": [
+          {
+            "start": 0,
+            "end": 3,
+            "value": "あなた",
+            "entity": "role"
+          },
+          {
+            "start": 4,
+            "end": 7,
+            "value": "カレー",
+            "entity": "food"
+          }
+        ]
+      },
+      {
+        "text": "お皿を二枚ください。",
+        "intent": "restaurant",
+        "entities": [
+          {
+            "start": 0,
+            "end": 2,
+            "value": "お皿",
+            "entity": "tool"
+          }
+        ]
+      },
+      {
+        "text": "彼女は卵を食べる。",
+        "intent": "restaurant",
+        "entities": [
+          {
+            "start": 0,
+            "end": 2,
+            "value": "彼女",
+            "entity": "role"
+          },
+          {
+            "start": 3,
+            "end": 4,
+            "value": "卵",
+            "entity": "food"
+          }
+        ]
+      }
+    ]
+  }
+}

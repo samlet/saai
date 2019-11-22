@@ -1,0 +1,152 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "text": "这附近哪里有吃麻辣烫的地方",
+        "intent": "restaurant_search",
+        "entities": [
+          {
+            "start": 7,
+            "end": 10,
+            "value": "麻辣烫",
+            "entity": "food"
+          }
+        ]
+      },
+      {
+        "text": "想去一家有情调的餐厅",
+        "intent": "restaurant_search",
+        "entities": []
+      },
+      {
+        "text": "附近有什么好吃的地方吗",
+        "intent": "restaurant_search",
+        "entities": []
+      },
+      {
+        "text": "找个吃拉面的店",
+        "intent": "restaurant_search",
+        "entities": [
+          {
+            "start": 3,
+            "end": 5,
+            "value": "拉面",
+            "entity": "food"
+          }
+        ]
+      },
+      {
+        "text": "感冒了怎么办",
+        "intent": "medical",
+        "entities": [
+          {
+            "start": 0,
+            "end": 2,
+            "value": "感冒",
+            "entity": "disease"
+          }
+        ]
+      },
+      {
+        "text": "我胃痛，该吃什么药？",
+        "intent": "medical",
+        "entities": [
+          {
+            "start": 1,
+            "end": 3,
+            "value": "胃痛",
+            "entity": "disease"
+          }
+        ]
+      },
+      {
+        "text": "一直打喷嚏怎么办",
+        "intent": "medical",
+        "entities": [
+          {
+            "start": 2,
+            "end": 5,
+            "value": "打喷嚏",
+            "entity": "disease"
+          }
+        ]
+      },
+      {
+        "text": "父母都有高血压，我会遗传吗",
+        "intent": "medical",
+        "entities": [
+          {
+            "start": 4,
+            "end": 7,
+            "value": "高血压",
+            "entity": "disease"
+          }
+        ]
+      },
+      {
+        "text": "父母都有高血压，我应该推荐他们去哪家医院好呢",
+        "intent": "medical_department",
+        "entities": [
+          {
+            "start": 4,
+            "end": 7,
+            "value": "高血压",
+            "entity": "disease"
+          }
+        ]
+      },
+      {
+        "text": "我生病了，不知道去哪里看病",
+        "intent": "medical_department",
+        "entities": []
+      },
+      {
+        "text": "头上烫烫的，感觉发烧了，该去看哪个诊所哪个科室好呢",
+        "intent": "medical_department",
+        "entities": [
+          {
+            "start": 8,
+            "end": 10,
+            "value": "发烧",
+            "entity": "disease"
+          }
+        ]
+      },
+      {
+        "text": "比尔盖茨1979年秋天从大学肆业",
+        "intent": "education_experience",
+        "entities": []
+      },
+      {
+        "text": "Rami Eid正在纽约石溪大学学习",
+        "intent": "education_experience",
+        "entities": []
+      },
+      {
+        "text": "周四下午三点到五点开会",
+        "intent": "about_date",
+        "entities": []
+      },
+      {
+        "text": "明天早上跑步",
+        "intent": "about_date",
+        "entities": []
+      },
+      {
+        "text": "6:30 起床",
+        "intent": "about_date",
+        "entities": []
+      },
+      {
+        "text": "下下周一开会",
+        "intent": "about_date",
+        "entities": []
+      },
+      {
+        "text": "7月10日晚上7点左右，六安市公安局裕安分局平桥派出所接到辖区居民戴某报警",
+        "intent": "about_date",
+        "entities": []
+      }
+    ]
+  }
+}
