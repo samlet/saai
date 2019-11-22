@@ -1,7 +1,7 @@
 #!/bin/bash
-. /pi/bin/inc/wait_funcs.sh
-. /pi/bin/inc/matchers.sh
-. /pi/bin/inc/docker_utils.sh
+#. /pi/bin/inc/wait_funcs.sh
+#. /pi/bin/inc/matchers.sh
+#. /pi/bin/inc/docker_utils.sh
 
 export PYTHONPATH=/pi/stack:..:$PYTHONPATH
 python="$HOME/miniconda3/envs/rasa/bin/python"
@@ -41,11 +41,12 @@ else
 	"nlu")
 		# $python -m rasa_nlu.server --path projects
 		# $rasa run --enable-api -m models/ja_current.tar.gz -p 2000
-		if [ $# -gt 1 ]; then	
+		if [ $# -gt 2 ]; then
 			lang=$2
-			$rasa run --enable-api -m models/${lang}_current.tar.gz -p 2000
+			port=$3
+			$rasa run --enable-api -m models/${lang}_current.tar.gz -p $port
 		else
-			echo "use: start nlu <lang>"
+			echo "use: start nlu <lang> <port>"
 		fi		
 		;;	
 	"train_de")
