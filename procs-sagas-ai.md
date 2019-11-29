@@ -24,4 +24,16 @@ $ start nlu en 2001
 $ curl localhost:2001/model/parse -d '{"text":"can i get french food"}' | json
 ```
 
++ run manager
+
+■ nlu_multilang的启动管理器:
+    + sagas-ai/saai/runner.py
+
+```sh
+$(server) python -m saai.runner exec_spec zh,en,ja
+$ python -m saai.runner invoke "几台电脑" zh
+$ python -m saai.runner invoke "卵を食べる" ja
+$ python -m saai.runner invoke "can i get french food" en
+$ python -m saai.runner invoke "Shenzhen ist das Silicon Valley für Hardware-Firmen" de
+```
 

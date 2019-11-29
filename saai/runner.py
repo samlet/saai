@@ -49,6 +49,7 @@ class Runner(object):
     def exec_spec(self, langs):
         """
         $ python -m saai.runner exec_spec zh,en,ja
+        $ python -m saai.runner exec_spec zh,en,ja,de
         :param langs:
         :return:
         """
@@ -60,11 +61,12 @@ class Runner(object):
 
         sys.exit(m.returncode)
 
-    def invoke(self, sents, lang):
+    def invoke(self, sents, lang, port=0):
         """
         $ python -m saai.runner invoke "几台电脑" zh
         $ python -m saai.runner invoke "卵を食べる" ja
         $ python -m saai.runner invoke "can i get french food" en
+        $ python -m saai.runner invoke "Shenzhen ist das Silicon Valley für Hardware-Firmen" de
 
         :param sents:
         :param lang:
@@ -72,7 +74,8 @@ class Runner(object):
         """
         from pprint import pprint
 
-        port = self.nlu_servants[lang]
+        if port ==0:
+            port = self.nlu_servants[lang]
         url=f"http://localhost:{port}/model/parse"
         r=invoke_nlu(url, sents)
         if r is not None:
@@ -82,3 +85,4 @@ class Runner(object):
 if __name__ == '__main__':
     import fire
     fire.Fire(Runner)
+
