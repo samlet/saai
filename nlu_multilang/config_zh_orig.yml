@@ -1,0 +1,11 @@
+language: "zh"
+
+pipeline:
+- name: "nlp_mitie"
+  model: "/pi/ai/rasa/total_word_feature_extractor_zh.dat"
+- name: "tokenizer_jieba"
+- name: "ner_mitie"
+- name: "ner_synonyms"
+- name: "intent_featurizer_count_vectors"
+- name: "intent_classifier_tensorflow_embedding"
+
