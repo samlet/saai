@@ -3,7 +3,8 @@
 #. /pi/bin/inc/matchers.sh
 #. /pi/bin/inc/docker_utils.sh
 
-export PYTHONPATH=/pi/stack:..:$PYTHONPATH
+#export PYTHONPATH=/pi/stack:..:$PYTHONPATH
+export PYTHONPATH=/pi/stack:/pi/ws/sagas-ai:$PYTHONPATH
 python="$HOME/miniconda3/envs/rasa/bin/python"
 rasa="$HOME/miniconda3/envs/rasa/bin/rasa"
 
