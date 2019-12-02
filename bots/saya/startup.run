@@ -27,6 +27,15 @@ else
 	"actions")
 	    $rasa run actions
 	    ;;
+	"shell")
+	    $rasa shell
+	    ;;
+	"nlu")
+	    $rasa shell nlu
+	    ;;
+	"nlu-server")
+	    $rasa run --enable-api
+	    ;;
 	*)
 		# default proc
 		handle_cmd ${@:1}

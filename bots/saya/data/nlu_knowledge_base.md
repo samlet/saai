@@ -29,7 +29,15 @@
 - does the [third](mention:3) one has a [swimming pool](attribute:swimming-pool)?
 - what is the [star rating](attribute:star-rating) of [Berlin Wall Hostel](hotel)?
 - Does the [Hilton](hotel) has a [swimming pool](attribute:swimming-pool)?
+- What is the [gender](attribute) of [Hans Maier](person)?
+- What is the [email](attribute) of [Jannik Jung](person)?
+- In what [city](attribute) does [christa schulz](person) live?
+- In what [city](attribute) is [N26](bank) located?
+- Has [Wirecard Bank](bank) an [english website](attribute)?
+- Has [landwirtschaftliche rentenbank](bank) an [english website](attribute)?
 
+## regex:account
+- DE[0-9]{20}
 
 ## lookup:restaurant
 - Donath
@@ -47,3 +55,9 @@
 - City Hotel
 - Jugendherberge
 - Berlin Hotel
+
+## lookup:bank
+  data/lookup_tables/bank.txt
+
+## lookup:person
+  data/lookup_tables/person.txt

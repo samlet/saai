@@ -16,6 +16,8 @@ entities:
   - restaurant
   - cuisine
   - city
+  - bank
+  - person
 
 slots:
   object_type:
@@ -32,6 +34,10 @@ slots:
     type: unfeaturized
   cuisine:
     type: unfeaturized
+  person:
+    type: text
+  bank:
+    type: text
 
 actions:
 - utter_greet
