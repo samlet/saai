@@ -1,0 +1,47 @@
+// -*- tab-width: 4; -*-//
+//
+
+%start Map1::Start
+%class AppClass
+
+%map Map1
+%%
+// State        Transition      End State       Action(s)
+Start
+{
+                Zero            Zeros           {}
+                One             Ones            {}
+                EOS             OK              {Acceptable();}
+}
+
+Zeros
+{
+                Zero            nil             {}
+                One             Ones            {}
+                EOS             OK              {Acceptable();}
+}
+
+Ones
+{
+                Zero            Error           {}
+                One             nil             {}
+                EOS             OK              {Acceptable();}
+}
+
+OK
+{}
+
+Error
+{
+                Zero            nil             {}
+                One             nil             {}
+                Unknown         nil             {}
+                EOS             nil             {Unacceptable();}
+}
+
+Default
+{
+                Unknown         Error           {}
+}
+
+%%

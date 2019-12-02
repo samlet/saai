@@ -1,0 +1,91 @@
+// -*- tab-width: 4; -*-
+//
+//
+
+%start VehicleMap::Stopped
+%class Vehicle
+%package smc_ex4
+
+%map VehicleMap
+%%
+Stopped
+{
+    Start               Moving          {SetTimer();}
+
+    Stop                nil             {}
+    Pause               nil             {}
+    Continue            nil             {}
+}
+
+Moving
+{
+    KeepGoing           nil             {Move(); SetTimer();}
+    LightRed            AtLight         {RegisterWithLight();}
+    TripDone            Done            {SelfDestruct();}
+}
+
+AtLight
+{
+    LightGreen          Moving          {Move(); SetTimer();}
+}
+
+Done
+{}
+
+Default
+{
+    KeepGoing           nil             {}
+    LightGreen          nil             {}
+    LightRed            Stopped         {}
+    TripDone            Done            {}
+
+    Start               nil             {}
+    Pause               push(PauseMap2::Paused) {}
+    Continue            nil             {}
+    Stop                Stopped         {StopTimer();}
+}
+%%
+
+%map PauseMap2
+%%
+Paused
+{
+    Continue            pop(Continue)   {}
+    KeepGoing           KeepGoing       {}
+    LightGreen          LightGreen      {}
+    LightRed            LightRed        {}
+    TripDone            TripDone        {}
+}
+
+KeepGoing
+{
+    Continue            pop(KeepGoing)  {}
+}
+
+LightGreen
+{
+    Continue            pop(LightGreen) {}
+}
+
+LightRed
+{
+    Continue            pop(LightRed)   {}
+}
+
+TripDone
+{
+    Continue            pop(TripDone)   {}
+}
+
+Default
+{
+    Start               nil             {}
+    Pause               nil             {}
+    Stop                pop(Stop)       {}
+
+    KeepGoing           nil             {}
+    LightGreen          nil             {}
+    LightRed            nil             {}
+    TripDone            nil             {}
+}
+%%

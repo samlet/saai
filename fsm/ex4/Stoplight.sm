@@ -1,0 +1,92 @@
+// -*- tab-width: 4; -*-
+
+%start StopMap::Stopped
+%class Stoplight
+%package smc_ex4
+
+%map StopMap
+%%
+Stopped {
+    Start               EastWestGreen       {
+                                              TurnLight('NSLIGHT', 'red');
+                                              TurnLight('EWLIGHT', 'green');
+                                              SetTimer('EWGreenTimer');
+                                            }
+
+    // Ignore pause, continue and stop because we ain't running.
+    Pause               nil                 {}
+    Continue            nil                 {}
+    Stop                nil                 {}
+}
+
+EastWestGreen {
+    Timeout             EastWestYellow      {
+                                              TurnLight('EWLIGHT', 'yellow');
+                                              SetTimer('YellowTimer');
+                                            }
+}
+
+EastWestYellow {
+    Timeout             NorthSouthGreen     {
+                                              TurnLight('EWLIGHT', 'red');
+                                              TurnLight('NSLIGHT', 'green');
+                                              InformVehicles('north');
+                                              InformVehicles('south');
+                                              SetTimer('NSGreenTimer');
+                                            }
+}
+
+NorthSouthGreen {
+    Timeout             NorthSouthYellow    {
+                                              TurnLight('NSLIGHT', 'yellow');
+                                              SetTimer('YellowTimer');
+                                            }
+}
+
+NorthSouthYellow {
+    Timeout             EastWestGreen       {
+                                              TurnLight('NSLIGHT', 'red');
+                                              TurnLight('EWLIGHT', 'green');
+                                              InformVehicles('east');
+                                              InformVehicles('west');
+                                              SetTimer('EWGreenTimer');
+                                            }
+}
+
+Default {
+    // Ignore start because this object is already running.
+    Start               nil                 {}
+    Continue            nil                 {}
+
+    // Don't stop timers. Let them expire. The pause map will
+    // catch them and pass them back when popped.
+    Pause               push(PauseMap::Paused) {}
+
+    // Stop timers because this demo is stopping.
+    Stop                Stopped             {
+                                              StopTimer();
+                                              ResetLights();
+                                            }
+}
+%%
+
+%map PauseMap
+%%
+Paused {
+    Timeout             PauseTimeout        {}
+
+    Continue            pop(Continue)       {}
+}
+
+PauseTimeout {
+    Continue            pop(Timeout)        {}
+}
+
+Default {
+    // Ignore start and pause.
+    Start               nil                 {}
+    Pause               nil                 {}
+
+    Stop                pop(Stop)           {}
+}
+%%
