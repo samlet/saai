@@ -40,3 +40,16 @@ class ActionIsBot(Action):
         dispatcher.utter_template("utter_iamabot", tracker)
         return [UserUtteranceReverted()]
 
+class ActionLogCommEvent(Action):
+    """Revertible mapped action for utter_is_bot"""
+
+    def name(self):
+        return "action_log_commevent"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker:Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        pprint(tracker.slots)
+        dispatcher.utter_message(json_message={'result': 'log ok'})
+        return [UserUtteranceReverted()]
+

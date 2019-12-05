@@ -43,6 +43,19 @@ class SaaiCli(object):
         """
         print(testing_tokenizer(text, MultilangTokenizer, lang))
 
+    def bot_message(self, lang='en'):
+        """
+        $ python -m saai.saai_cli bot_message
+        :param lang:
+        :return:
+        """
+        import requests
+        sents = '/behave_purpose{"object_type": "restaurant"}'
+        data = {'mod': 'genesis', 'lang': lang, "sents": sents}
+        response = requests.post(f'http://localhost:18099/message/my', json=data)
+        print('status code:', response.status_code)
+        return response.json()
+
 if __name__ == '__main__':
     import fire
     fire.Fire(SaaiCli)
