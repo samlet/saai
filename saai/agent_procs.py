@@ -18,12 +18,13 @@ class BotsConf(object):
         # bot_locs={'genesis': '/pi/ws/sagas-ai/bots/genesis'}
         self.bot_locs = conf_data['bot_locs']
         self.templates_dir='/pi/ws/sagas-ai/templates'
+        self.ruleset_files='/pi/stack/conf/ruleset_*.json'
 
 def generate_domain_file(conf):
     cnt = io_utils.read_yaml_file(f'{conf.templates_dir}/domain.yml')
     intents = cnt['intents']
     actions = cnt['actions']
-    for f in glob.glob('/pi/stack/conf/ruleset_*.json'):
+    for f in glob.glob(conf.ruleset_files):
         rules = io_utils.read_json_file(f)
         for rule in rules:
             intents.append({rule['intent']: {'triggers': rule['action']}})
