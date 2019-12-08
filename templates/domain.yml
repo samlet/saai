@@ -17,6 +17,10 @@ entities:
   - restaurant
   - cuisine
   - city
+  - sents
+  - subject
+  - predicate
+  - object
 
 slots:
   object_type:
@@ -32,6 +36,14 @@ slots:
   city:
     type: unfeaturized
   cuisine:
+    type: unfeaturized
+  sents:
+    type: unfeaturized
+  subject:
+    type: unfeaturized
+  predicate:
+    type: unfeaturized
+  object:
     type: unfeaturized
 
 

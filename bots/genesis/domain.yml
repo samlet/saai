@@ -16,6 +16,10 @@ entities:
 - restaurant
 - cuisine
 - city
+- sents
+- subject
+- predicate
+- object
 intents:
 - greet
 - goodbye
@@ -39,9 +43,17 @@ slots:
     type: unfeaturized
   mention:
     type: unfeaturized
+  object:
+    type: unfeaturized
   object_type:
     type: unfeaturized
+  predicate:
+    type: unfeaturized
   restaurant:
+    type: unfeaturized
+  sents:
+    type: unfeaturized
+  subject:
     type: unfeaturized
 templates:
   utter_cheer_up:

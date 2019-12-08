@@ -50,8 +50,10 @@ class SaaiCli(object):
         :return:
         """
         import requests
-        sents = '/behave_purpose{"object_type": "restaurant"}'
-        data = {'mod': 'genesis', 'lang': lang, "sents": sents}
+        # sents = '/behave_purpose{"object_type": "restaurant"}'
+        # data = {'mod': 'genesis', 'lang': lang, "sents": sents}
+        text = '/behave_purpose{"object_type": "text", "sents":"%s"}' % "do you have any restaurants"
+        data = {'mod': 'genesis', 'lang': lang, "sents": text}
         response = requests.post(f'http://localhost:18099/message/my', json=data)
         print('status code:', response.status_code)
         return response.json()

@@ -37,3 +37,17 @@ $ python -m saai.runner invoke "can i get french food" en
 $ python -m saai.runner invoke "Shenzhen ist das Silicon Valley für Hardware-Firmen" de
 ```
 
+## sagas servants
+■ agent servant:
+    $ start actions
+    + sagas-ai/saai/agent_procs.py
+        $ python -m saai.agent_procs tests
+    + sagas-ai/saai/agent_servant.py
+        $ python -m saai.agent_servant
+    + procs-agent-cli.ipynb
+    $ python -m saai.saai_cli bot_message
+
++ conf: sagas-ai/conf/agents.json
+
+
+

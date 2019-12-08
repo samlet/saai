@@ -1,12 +1,3 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/core/actions/#custom-actions/
-
-
-# This is a simple example for a custom action which utters "Hello World!"
-
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
@@ -40,9 +31,11 @@ class ActionIsBot(Action):
         dispatcher.utter_template("utter_iamabot", tracker)
         return [UserUtteranceReverted()]
 
-class ActionLogCommEvent(Action):
-    """Revertible mapped action for utter_is_bot"""
+def prop(tracker:Tracker, attr:Text):
+    attr_val = tracker.get_slot(attr) if attr in tracker.slots else ''
+    return attr_val
 
+class ActionLogCommEvent(Action):
     def name(self):
         return "action_log_commevent"
 
@@ -50,6 +43,7 @@ class ActionLogCommEvent(Action):
             tracker:Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         pprint(tracker.slots)
-        dispatcher.utter_message(json_message={'result': 'log ok'})
+        dispatcher.utter_message(json_message={'result': 'log ok',
+                                               'sents':prop(tracker, 'sents')})
         return [UserUtteranceReverted()]
 

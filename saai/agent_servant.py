@@ -15,6 +15,9 @@ def ensure_paras(names, paras):
     return True
 
 class AgentServ(object):
+    def __init__(self, conf):
+        self.conf=conf
+
     async def intro(self, request):
         txt = textwrap.dedent("""\
             Type {url}/hello/John  {url}/simple or {url}/change_body
@@ -53,7 +56,7 @@ class AgentServ(object):
         :param request:
         :return:
         """
-        from saai.agent_procs import handle_message
+        from saai.agent_procs import BotsConf, handle_message
 
         data = await request.json()
         sender=request.match_info.get('sender', '_')
@@ -69,7 +72,8 @@ class AgentServ(object):
 
         # invoke agent
         # handle_message(bot, text, sender='default')
-        resp=await handle_message(data['mod'], data['sents'], sender=sender)
+        conf=BotsConf(conf=self.conf)
+        resp=await handle_message(data['mod'], data['sents'], sender=sender, conf=conf)
         return web.json_response(resp, dumps=functools.partial(json.dumps, indent=4))
 
     def init(self, loop):
@@ -81,12 +85,18 @@ class AgentServ(object):
 
         return app
 
+class ServantRunner(object):
+    def app(self, conf='/pi/ws/sagas-ai/conf/agents.json'):
+        """
+        $ python -m saai.agent_servant app
+        """
+        serv = AgentServ(conf)
+        v_loop = asyncio.get_event_loop()
+        v_loop.set_debug(True)
+        web.run_app(serv.init(v_loop), port=18099)
+
 if __name__ == '__main__':
-    """
-    $ python -m saai.agent_servant
-    """
-    serv=AgentServ()
-    v_loop = asyncio.get_event_loop()
-    v_loop.set_debug(True)
-    web.run_app(serv.init(v_loop), port=18099)
+    import fire
+    fire.Fire(ServantRunner)
+
 
