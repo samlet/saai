@@ -7,6 +7,8 @@ intents:
   - mood_unhappy
   - bot_challenge
   - query_knowledge_base
+  - behave_hi:
+      triggers: action_hello_world
 
 entities:
   - object_type
@@ -47,6 +49,7 @@ actions:
 - utter_goodbye
 - utter_iamabot
 - action_query_knowledge_base
+- action_hello_world
 
 templates:
   utter_greet:
