@@ -31,6 +31,14 @@ with ruleset('verbs'):
         # print ('xcomp pat -> {0}'.format(c.m.domains.xcomp.text))
         print('5. nsubj pat')
 
+with ruleset('risk'):
+    @when_all(c.first << m.t == 'purchase',
+              c.second << m.location != c.first.location)
+    # the event pair will only be observed once
+    def fraud(c):
+        print('risk-> Fraud detected -> {0}, {1}'.format(c.first.location, c.second.location))
+
+
 class RulesTests(object):
     def tests_1(self):
         """
@@ -69,6 +77,19 @@ class RulesTests(object):
              "feats": "Mood=Ind|Tense=Pres|VerbForm=Fin",
              "governor": 0, "dependency_relation": "root"}
         print(assert_fact('verbs', v))
+
+    def tests_2(self):
+        """
+        $ python -m saai.tests.rules_tests tests_2
+        :return:
+        """
+        # 'post' submits events, try 'assert' instead and to see differt behavior
+        # post('risk', {'t': 'purchase', 'location': 'US'})
+        # post('risk', {'t': 'purchase', 'location': 'CA'})
+        post_batch('risk', [{'t': 'purchase', 'location': 'US'},{'t': 'purchase', 'location': 'CA'}])
+        print('..')
+        assert_fact('risk', {'t': 'purchase', 'location': 'US'})
+        assert_fact('risk', {'t': 'purchase', 'location': 'CA'})
 
 if __name__ == '__main__':
     import fire
