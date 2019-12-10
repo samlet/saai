@@ -47,16 +47,17 @@ class ActionLogCommEvent(Action):
                                                'sents':prop(tracker, 'sents')})
         return [UserUtteranceReverted()]
 
-class ActionPerformSound(Action):
+class ActionPerformMedia(Action):
     def name(self):
-        return "action_perform_sound"
+        return "action_perform_media"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker:Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         pprint(tracker.slots)
         dispatcher.utter_message(json_message={'result': 'success',
-                                               'music_list': ['first song', 'second song'],
+                                               'media_list': ['first song', 'second song'],
+                                               'media_type': tracker.get_slot('object_type'),
                                                'sents':prop(tracker, 'sents')})
         return [UserUtteranceReverted()]
 

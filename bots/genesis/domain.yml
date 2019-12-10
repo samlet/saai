@@ -8,6 +8,7 @@ actions:
 - action_hello_world
 - action_is_bot
 - action_log_commevent
+- action_perform_media
 entities:
 - object_type
 - mention
@@ -32,6 +33,8 @@ intents:
     triggers: action_is_bot
 - behave_purpose:
     triggers: action_log_commevent
+- perform_media:
+    triggers: action_perform_media
 slots:
   attribute:
     type: unfeaturized

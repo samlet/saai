@@ -2,6 +2,11 @@
 ```bash
 $ . env.sh 
 $ python -m procs_tests test_df
+
+# run agents servant
+$ honcho start
+# or
+$ s1
 ```
 
 ## nlu train & run
