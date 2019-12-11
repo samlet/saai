@@ -63,15 +63,15 @@ else
 	"train_zh")
 	    # $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/cn-Samples_issue.md zh/cn-Samples.json
         # $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/cn-ConcertBot.md zh/cn-ConcertBot.json
-        $python -m saai.tools.corpus_procs gen_datasets cn 'zh/'
+        $python -m saai.tools.corpus_procs gen_datasets cn '/pi/ws/sagas-ai/nlu_multilang/zh/'
         train zh
 	    ;;
 	"prepare_ja")
-	    $python -m saai.tools.corpus_procs gen_datasets ja 'ja/'
+	    $python -m saai.tools.corpus_procs gen_datasets ja '/pi/ws/sagas-ai/nlu_multilang/ja/'
 	    ;;
 	"train_ja")
 	    # $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/ja-Samples.md ja/ja-Samples.json
-	    $python -m saai.tools.corpus_procs gen_datasets ja 'ja/'
+	    $python -m saai.tools.corpus_procs gen_datasets ja '/pi/ws/sagas-ai/nlu_multilang/ja/'
 	    train ja
 	    ;;
 	"train")

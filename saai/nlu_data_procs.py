@@ -23,6 +23,19 @@ class NluDataProcs(object):
         print('.. lookup_tables')
         pprint(td.lookup_tables)
 
+    def train(self):
+        from rasa.train import train_nlu
+        prefix = '/pi/ws/sagas-ai/nlu_multilang'
+        train_nlu(
+            config=f"{prefix}/config_en.yml",
+            nlu_data=f"{prefix}/en/",
+            output=f'{prefix}/models',
+            fixed_model_name='en_current',
+            persist_nlu_training_data=True
+        )
+
+
+
 if __name__ == '__main__':
     import fire
     fire.Fire(NluDataProcs)
