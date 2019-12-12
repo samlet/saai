@@ -81,6 +81,11 @@ class NluModProcs(object):
         $ python -m saai.nlu_mod_procs check_modified
         :return:
         """
+        import os
+
+        if not os.path.exists(self.timestamps_file):
+            return mods
+
         before = json_utils.read_json_file(self.timestamps_file)
         current = self.get_timestamps()
         modified = []
