@@ -62,18 +62,38 @@ class AgentServ(object):
         sender=request.match_info.get('sender', '_')
         print(data, type(data))
         if not ensure_paras(('mod', 'sents', 'lang'), data):
+            # 400 Bad Request
             return web.json_response({
                 'error':'invalidate parameters',
                 'method': 'handle_message',
                 'sender': sender,
                 'data': dict(data),
                 'headers': dict(request.headers),
-            }, dumps=functools.partial(json.dumps, indent=4))
+            }, status=400, dumps=functools.partial(json.dumps, indent=4))
 
         # invoke agent
         # handle_message(bot, text, sender='default')
         conf=BotsConf(conf=self.conf)
         resp=await handle_message(data['mod'], data['sents'], sender=sender, conf=conf)
+        return web.json_response(resp, dumps=functools.partial(json.dumps, indent=4))
+
+    async def handle_parse(self, request):
+        from saai.nlu_mod_procs import nlu_mods
+        data = await request.json()
+        # ignore parameter 'model'
+        if not ensure_paras(('project', 'q'), data):
+            # 400 Bad Request
+            return web.json_response({
+                'error':'invalidate parameters',
+                'method': 'handle_parse',
+                'data': dict(data),
+                'headers': dict(request.headers),
+            }, status=400, dumps=functools.partial(json.dumps, indent=4))
+
+        lang=data['project']
+        sents=data['q']
+
+        resp =await nlu_mods.parse_async(sents, lang)
         return web.json_response(resp, dumps=functools.partial(json.dumps, indent=4))
 
     def init(self, loop):
@@ -82,6 +102,7 @@ class AgentServ(object):
         app.router.add_get('/', self.intro)
         app.router.add_post('/post/{info}', self.post)
         app.router.add_post('/message/{sender}', self.handle_message)
+        app.router.add_post('/parse', self.handle_parse)
 
         return app
 

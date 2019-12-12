@@ -1,5 +1,6 @@
 import json
 import json_utils
+import sagas.tracker_fn as tc
 
 prefix = '/pi/ws/sagas-ai/nlu_multilang'
 def train_mod(lang):
@@ -12,7 +13,7 @@ def train_mod(lang):
         config=f"{prefix}/config_{lang}.yml",
         nlu_data=f"{prefix}/{lang}/",
         output=f'{prefix}/models',
-        fixed_model_name='{lang}_current',
+        fixed_model_name=f'{lang}_current',
         persist_nlu_training_data=True
     )
 
@@ -28,9 +29,21 @@ async def intepret(agent, text):
     interpreter = agent.interpreter
     return await interpreter.parse(text)
 
-class NluModProcs(object):
-    mods = ('de', 'en', 'es', 'fr', 'ru', 'corpus')
+mods = ('de', 'en', 'es', 'fr', 'ru', 'corpus')
+langs = {'de', 'en', 'fr', 'ru', 'es', 'zh', 'ja'}
+class NluMods(object):
+    def __init__(self):
+        self.mods = {}
 
+    async def parse_async(self, sents, lang):
+        if lang not in langs:
+            return {}
+        if lang not in self.mods:
+            self.mods[lang]=load_mod(lang)
+        return await intepret(self.mods[lang], sents)
+
+
+class NluModProcs(object):
     def __init__(self):
         self.timestamps_file=f'{prefix}/last_timestamps.json'
 
@@ -39,7 +52,7 @@ class NluModProcs(object):
         import os
 
         last_timestamps = {}
-        for mod in self.mods:
+        for mod in mods:
             folder = f"{prefix}/{mod}/"
             # print(folder)
             # print(os.listdir(folder))
@@ -76,6 +89,28 @@ class NluModProcs(object):
                 modified.append(item)
         return modified
 
+    def train_all(self, force=False):
+        """
+        $ python -m saai.nlu_mod_procs train_all
+        :return:
+        """
+        if force:
+            train_set=mods
+        else:
+            train_set=self.check_modified()
+        if len(train_set)>0:
+            for lang in train_set:
+                if lang=='corpus':
+                    tc.emp('green', 'train zh,ja ...')
+                    train_mod('zh')
+                    train_mod('ja')
+                else:
+                    tc.emp('green', f'train {lang} ...')
+                    train_mod(lang)
+            self.write_timestamps()
+        else:
+            tc.emp('yellow', 'all up-to-date.')
+
     def train(self, lang):
         """
         $ python -m saai.nlu_mod_procs train zh
@@ -105,6 +140,7 @@ class NluModProcs(object):
         from pprint import pprint
         pprint(self.parse(sents, lang))
 
+nlu_mods=NluMods()
 
 if __name__ == '__main__':
     import fire
