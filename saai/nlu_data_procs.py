@@ -1,4 +1,5 @@
 from rasa.importers.utils import training_data_from_paths
+import sagas.tracker_fn as tc
 
 class NluDataProcs(object):
     def view_file(self, file, lang='en'):
@@ -11,16 +12,21 @@ class NluDataProcs(object):
         :return:
         """
         from pprint import pprint
+
         # files = ['./nlu_multilang/en/nlu_data.md']
         td = training_data_from_paths([file], language=lang)
-        print('.. intents')
-        print(td.intents)
-        print('.. entities')
-        print(td.entities)
+
         print('.. examples')
         # print(*[e.text for e in td.training_examples], sep='\n')
         print(*[(e.get("intent"), e.text) for e in td.training_examples], sep='\n')
-        print('.. lookup_tables')
+
+        tc.emp('green', '.. intents')
+        for intent in td.intents:
+            tc.emp('yellow', f"  - {intent}")
+        tc.emp('green', '.. entities')
+        print(td.entities)
+
+        tc.emp('green', '.. lookup_tables')
         pprint(td.lookup_tables)
 
     def train(self):
