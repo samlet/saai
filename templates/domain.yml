@@ -45,6 +45,8 @@ slots:
     type: unfeaturized
   object:
     type: unfeaturized
+  parameters:
+    type: unfeaturized
 
 
 actions:

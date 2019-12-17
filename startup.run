@@ -37,7 +37,8 @@ else
 	    $python -m saai.agent_servant app
 	    ;;
 	"genesis_actions")
-	    cd bots/genesis && $rasa run actions
+	    cd bots/genesis
+	    $rasa run actions
 	    ;;
 	*)
 		# default proc

@@ -50,6 +50,8 @@ slots:
     type: unfeaturized
   object_type:
     type: unfeaturized
+  parameters:
+    type: unfeaturized
   predicate:
     type: unfeaturized
   restaurant:
