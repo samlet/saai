@@ -107,10 +107,13 @@ class AgentServ(object):
         return app
 
 class ServantRunner(object):
-    def app(self, conf='/pi/ws/sagas-ai/conf/agents.json'):
+    def app(self, conf='agents'):
         """
         $ python -m saai.agent_servant app
         """
+        conf_prefix='/pi/ws/sagas-ai/conf'
+        if not conf.startswith('/'):
+            conf=f"{conf_prefix}/{conf}.json"
         serv = AgentServ(conf)
         v_loop = asyncio.get_event_loop()
         v_loop.set_debug(True)

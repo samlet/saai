@@ -1,0 +1,3 @@
+agent_servant: ./startup.run agent_servant_prod
+genesis_actions: ./startup.run genesis_actions
+

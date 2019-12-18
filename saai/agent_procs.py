@@ -1,3 +1,5 @@
+from typing import List, Dict, Any, Optional, Text
+
 import asyncio
 import glob
 from rasa.train import train_async
@@ -17,10 +19,11 @@ class BotsConf(object):
         conf_data=json_utils.read_json_file(self.conf)
         # bot_locs={'genesis': '/pi/ws/sagas-ai/bots/genesis'}
         self.bot_locs = conf_data['bot_locs']
+        self.config_file=conf_data['config_file']
         self.templates_dir='/pi/ws/sagas-ai/templates'
         self.ruleset_files='/pi/stack/conf/ruleset_*.json'
 
-def generate_domain_file(conf):
+def generate_domain_file(conf:BotsConf):
     cnt = io_utils.read_yaml_file(f'{conf.templates_dir}/domain.yml')
     intents = cnt['intents']
     actions = cnt['actions']
@@ -31,7 +34,7 @@ def generate_domain_file(conf):
             actions.append(rule['action'])
     return cnt
 
-async def train_agent(bot, conf):
+async def train_agent(bot:Text, conf:BotsConf):
     cnt=generate_domain_file(conf)
 
     prefix = f"{conf.bot_locs[bot]}"
@@ -40,13 +43,13 @@ async def train_agent(bot, conf):
     io_utils.write_yaml_file(cnt, domain_file)
     await train_async(
         domain=domain_file,
-        config=f"{prefix}/config.yml",
+        config=f"{prefix}/{conf.config_file}",
         training_files=f"{prefix}/data/",
         output_path=f"{prefix}/models/",
     )
 
 agents={}
-async def get_agent(bot, conf) -> Agent:
+async def get_agent(bot, conf:BotsConf) -> Agent:
     if bot not in agents:
         # train it
         await train_agent(bot, conf)
@@ -57,7 +60,7 @@ async def get_agent(bot, conf) -> Agent:
         agents[bot]=agent
     return agents[bot]
 
-async def handle_message(mod, text, sender, conf):
+async def handle_message(mod, text, sender, conf:BotsConf):
     agent=await get_agent(mod, conf)
     message = UserMessage(text, sender_id=sender)
     return await agent.handle_message(message)

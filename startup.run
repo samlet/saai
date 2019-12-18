@@ -36,6 +36,9 @@ else
 	"agent_servant")
 	    $python -m saai.agent_servant app
 	    ;;
+	"agent_servant_prod")
+	    $python -m saai.agent_servant app agents_prod
+	    ;;
 	"genesis_actions")
 	    cd bots/genesis
 	    $rasa run actions
