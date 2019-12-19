@@ -34,7 +34,13 @@ else
 	    $rasa shell nlu
 	    ;;
 	"nlu-server")
-	    $rasa run --enable-api
+	    $rasa run --enable-api -p 5008
+	    ;;
+	"nlg-server")
+	    $python -m saai.nlg.nlg_server --domain /pi/ws/sagas-ai/bots/saya/domain.yml
+	    ;;
+	"intp")
+	    $rasa shell --endpoints endpoints.yml
 	    ;;
 	*)
 		# default proc

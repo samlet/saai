@@ -43,6 +43,28 @@ else
 	    cd bots/genesis
 	    $rasa run actions
 	    ;;
+	"saya_actions")
+		cd bots/saya
+		$rasa run actions
+		;;
+	"saya_nlg")
+	    $python -m saai.nlg.nlg_server --domain /pi/ws/sagas-ai/bots/saya/domain.yml	    
+		;;
+	"saya")
+		cd bots/saya
+		$rasa shell --endpoints endpoints.yml
+		;;
+	"nlu")		
+		model_dir='/pi/ws/sagas-ai/nlu_multilang/models'
+		if [ $# -gt 2 ]; then
+			lang=$2
+			port=$3
+			echo "run server for lang $lang on port $port ..."
+			$rasa run --enable-api -m ${model_dir}/${lang}_current.tar.gz -p $port
+		else
+			echo "use: start nlu <lang> <port>"
+		fi		
+		;;	
 	*)
 		# default proc
 		handle_cmd ${@:1}

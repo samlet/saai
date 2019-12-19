@@ -54,5 +54,16 @@ $ python -m saai.runner invoke "Shenzhen ist das Silicon Valley für Hardware-Fi
 
 + conf: sagas-ai/conf/agents.json
 
+## saya individuals
+```sh
+# nlu/nlg/actions/agent均独立运行, see: Procfile_intp
+# nlu/nlg是语言相关的组件, actions/agent是语言无关的组件
+$ alias saya="$honcho start -f Procfile_intp"
+$ saya
+# cd bots/saya ; $rasa shell --endpoints endpoints.yml
+$ start saya
+```
+
+
 
 
