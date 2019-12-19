@@ -2,6 +2,7 @@ from saai.multilang_tokenizer import MultilangTokenizer
 
 from rasa.nlu.training_data import TrainingData, Message
 from rasa.nlu.tokenizers.whitespace_tokenizer import WhitespaceTokenizer
+import requests
 
 def testing_tokenizer(text, cls, lang='en'):
     defaults = {
@@ -49,12 +50,21 @@ class SaaiCli(object):
         :param lang:
         :return:
         """
-        import requests
         # sents = '/behave_purpose{"object_type": "restaurant"}'
         # data = {'mod': 'genesis', 'lang': lang, "sents": sents}
         text = '/behave_purpose{"object_type": "text", "sents":"%s"}' % "do you have any restaurants"
         data = {'mod': 'genesis', 'lang': lang, "sents": text}
         response = requests.post(f'http://localhost:18099/message/my', json=data)
+        print('status code:', response.status_code)
+        return response.json()
+
+    def bot_reload(self, bot='genesis'):
+        """
+        $ python -m saai.saai_cli bot_reload genesis
+        :param bot:
+        :return:
+        """
+        response = requests.post(f'http://localhost:18099/reload', json={'mod': bot})
         print('status code:', response.status_code)
         return response.json()
 

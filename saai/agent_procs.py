@@ -48,16 +48,19 @@ async def train_agent(bot:Text, conf:BotsConf):
         output_path=f"{prefix}/models/",
     )
 
+async def load_agent(bot:Text, conf:BotsConf) -> Agent:
+    # train it
+    await train_agent(bot, conf)
+    # load it
+    bot_loc = get_latest_model(f"{conf.bot_locs[bot]}/models")
+    print(f'.. load bot model {bot_loc}')
+    agent = Agent.load(bot_loc, action_endpoint=conf.endpoint)
+    return agent
+
 agents={}
-async def get_agent(bot, conf:BotsConf) -> Agent:
-    if bot not in agents:
-        # train it
-        await train_agent(bot, conf)
-        # load it
-        bot_loc = get_latest_model(f"{conf.bot_locs[bot]}/models")
-        print(f'.. load bot model {bot_loc}')
-        agent = Agent.load(bot_loc, action_endpoint=conf.endpoint)
-        agents[bot]=agent
+async def get_agent(bot:Text, conf:BotsConf, force=False) -> Agent:
+    if force or (bot not in agents):
+        agents[bot]=await load_agent(bot, conf)
     return agents[bot]
 
 async def handle_message(mod, text, sender, conf:BotsConf):

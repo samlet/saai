@@ -15,8 +15,10 @@ def ensure_paras(names, paras):
     return True
 
 class AgentServ(object):
-    def __init__(self, conf):
-        self.conf=conf
+    def __init__(self, conf_file):
+        from saai.agent_procs import BotsConf
+        self.conf_file=conf_file
+        self.conf=BotsConf(conf=self.conf_file)
 
     async def intro(self, request):
         txt = textwrap.dedent("""\
@@ -73,8 +75,25 @@ class AgentServ(object):
 
         # invoke agent
         # handle_message(bot, text, sender='default')
-        conf=BotsConf(conf=self.conf)
-        resp=await handle_message(data['mod'], data['sents'], sender=sender, conf=conf)
+        resp=await handle_message(data['mod'], data['sents'], sender=sender, conf=self.conf)
+        return web.json_response(resp, dumps=functools.partial(json.dumps, indent=4))
+
+    async def handle_reload(self, request):
+        from saai.agent_procs import get_agent
+        data = await request.json()
+        # ignore parameter 'model'
+        if not ensure_paras(['mod'], data):
+            # 400 Bad Request
+            return web.json_response({
+                'error': 'invalidate parameters',
+                'method': 'handle_reload',
+                'data': dict(data),
+                'headers': dict(request.headers),
+            }, status=400, dumps=functools.partial(json.dumps, indent=4))
+
+        mod = data['mod']
+        await get_agent(mod, self.conf, force=True)
+        resp={mod:'ok'}
         return web.json_response(resp, dumps=functools.partial(json.dumps, indent=4))
 
     async def handle_parse(self, request):
@@ -103,6 +122,7 @@ class AgentServ(object):
         app.router.add_post('/post/{info}', self.post)
         app.router.add_post('/message/{sender}', self.handle_message)
         app.router.add_post('/parse', self.handle_parse)
+        app.router.add_post('/reload', self.handle_reload)
 
         return app
 
