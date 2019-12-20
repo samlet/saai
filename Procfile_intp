@@ -1,3 +1,4 @@
 saya_actions: ./startup.run saya_actions
 saya_nlg: ./startup.run saya_nlg
 saya_nlu: ./startup.run nlu en 5008
+nlu_multilang: ./startup.run nlu_multilang

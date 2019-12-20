@@ -64,6 +64,19 @@ $ saya
 $ start saya
 ```
 
++ 切换多语言支持
+
+```sh
+$ saya
+# $rasa shell --endpoints endpoints_en.yml
+$ start saya_en
+
+# test cli
+$ python -m saai.saai_cli multilang_nlu en 'hi'
+```
+
+
+
 
 
 

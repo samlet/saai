@@ -54,6 +54,10 @@ else
 		cd bots/saya
 		$rasa shell --endpoints endpoints.yml
 		;;
+	"saya_en")
+		cd bots/saya
+		$rasa shell --endpoints endpoints_en.yml
+		;;
 	"nlu")		
 		model_dir='/pi/ws/sagas-ai/nlu_multilang/models'
 		if [ $# -gt 2 ]; then
@@ -65,6 +69,9 @@ else
 			echo "use: start nlu <lang> <port>"
 		fi		
 		;;	
+	"nlu_multilang")
+		$python -m saai.multi_nlu_servant 
+		;;
 	*)
 		# default proc
 		handle_cmd ${@:1}

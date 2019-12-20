@@ -3,6 +3,7 @@ from saai.multilang_tokenizer import MultilangTokenizer
 from rasa.nlu.training_data import TrainingData, Message
 from rasa.nlu.tokenizers.whitespace_tokenizer import WhitespaceTokenizer
 import requests
+import asyncio
 
 def testing_tokenizer(text, cls, lang='en'):
     defaults = {
@@ -67,6 +68,19 @@ class SaaiCli(object):
         response = requests.post(f'http://localhost:18099/reload', json={'mod': bot})
         print('status code:', response.status_code)
         return response.json()
+
+    def multilang_nlu(self, lang, text):
+        """
+        $ python -m saai.saai_cli multilang_nlu en 'hi'
+
+        :param lang:
+        :param text:
+        :return:
+        """
+        from saai.multi_nlu_client import multi_nlu
+
+        loop = asyncio.get_event_loop()
+        return loop.run_until_complete(multi_nlu.multilang(lang, text))
 
 if __name__ == '__main__':
     import fire
