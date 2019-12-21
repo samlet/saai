@@ -12,6 +12,7 @@ from rasa.nlu.constants import (
 from sagas.util.rest_common import query_data_by_url
 from rasa.nlu.training_data import TrainingData, Message
 from rasa.nlu.tokenizers.whitespace_tokenizer import WhitespaceTokenizer
+from sagas.conf.conf import cf
 
 class MultilangTokenizer(WhitespaceTokenizer):
     def __init__(self, component_config: Dict[Text, Any] = None) -> None:
@@ -24,7 +25,7 @@ class MultilangTokenizer(WhitespaceTokenizer):
             self, text: Text, attribute: Text = MESSAGE_TEXT_ATTRIBUTE
     ) -> List[Token]:
         if self.lang in ('zh', 'ja'):
-            r = query_data_by_url('multilang', 'tokens', {'lang': self.lang, 'sents': text})
+            r = query_data_by_url(cf.servant_by_lang(self.lang), 'tokens', {'lang': self.lang, 'sents': text})
             words = r['data']
             running_offset = 0
             tokens = []
