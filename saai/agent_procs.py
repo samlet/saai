@@ -25,7 +25,7 @@ class BotsConf(object):
         self.ruleset_files='/pi/stack/conf/ruleset_*.json'
 
     def get_endpoint(self, bot:Text):
-        from saai.runtime import runtime
+        from sagas.conf.runtime import runtime
         bot_endpoint=f"{bot}_actions" if runtime.is_docker() else 'localhost'
         return EndpointConfig(f"http://{bot_endpoint}:5055/webhook")
 

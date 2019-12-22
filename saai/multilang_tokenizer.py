@@ -1,14 +1,16 @@
 from typing import Any, Dict, List, Text
-from rasa.nlu.tokenizers import Token, Tokenizer
+from rasa.nlu.tokenizers.tokenizer import Token, Tokenizer
 from rasa.nlu.constants import (
-    MESSAGE_RESPONSE_ATTRIBUTE,
-    MESSAGE_INTENT_ATTRIBUTE,
-    MESSAGE_TEXT_ATTRIBUTE,
-    MESSAGE_TOKENS_NAMES,
+    # MESSAGE_RESPONSE_ATTRIBUTE,
+    # MESSAGE_INTENT_ATTRIBUTE,
+    # MESSAGE_TEXT_ATTRIBUTE,
+    # MESSAGE_TOKENS_NAMES,
+    TEXT_ATTRIBUTE,
     MESSAGE_ATTRIBUTES,
-    MESSAGE_SPACY_FEATURES_NAMES,
-    MESSAGE_VECTOR_FEATURE_NAMES,
+    # MESSAGE_SPACY_FEATURES_NAMES,
+    # MESSAGE_VECTOR_FEATURE_NAMES,
 )
+
 from sagas.util.rest_common import query_data_by_url
 from rasa.nlu.training_data import TrainingData, Message
 from rasa.nlu.tokenizers.whitespace_tokenizer import WhitespaceTokenizer
@@ -22,7 +24,7 @@ class MultilangTokenizer(WhitespaceTokenizer):
         print(f".. tokenizer with lang {self.lang}")
 
     def tokenize(
-            self, text: Text, attribute: Text = MESSAGE_TEXT_ATTRIBUTE
+            self, text: Text, attribute: Text = TEXT_ATTRIBUTE
     ) -> List[Token]:
         if self.lang in ('zh', 'ja'):
             r = query_data_by_url(cf.servant_by_lang(self.lang), 'tokens', {'lang': self.lang, 'sents': text})
