@@ -42,6 +42,11 @@ class NluMods(object):
             self.mods[lang]=load_mod(lang)
         return await intepret(self.mods[lang], sents)
 
+    def reload(self, lang):
+        train_mod(lang)
+        self.mods[lang] = load_mod(lang)
+        # return await intepret(self.mods[lang], 'hi')
+        return True
 
 class NluModProcs(object):
     def __init__(self):
@@ -119,6 +124,7 @@ class NluModProcs(object):
     def train(self, lang):
         """
         $ python -m saai.nlu_mod_procs train zh
+        $ python -m saai.nlu_mod_procs train en
         :param lang:
         :return:
         """
@@ -141,6 +147,7 @@ class NluModProcs(object):
     def parse_pp(self, sents, lang):
         """
         $ python -m saai.nlu_mod_procs parse_pp 'hi' en
+        $ python -m saai.nlu_mod_procs parse_pp '附近有什么好吃的' zh
         """
         from pprint import pprint
         pprint(self.parse(sents, lang))

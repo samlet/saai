@@ -69,6 +69,40 @@ class SaaiCli(object):
         print('status code:', response.status_code)
         return response.json()
 
+    def nlu_parse(self, sents, lang):
+        """
+        $ python -m saai.saai_cli nlu_parse "Shenzhen ist das Silicon Valley für Hardware-Firmen" de
+        $ python -m saai.saai_cli nlu_parse '附近有什么好吃的' zh
+
+        :param sents:
+        :param lang:
+        :return:
+        """
+        from sagas.conf.conf import cf
+        from sagas.nlu.rasa_procs import invoke_nlu
+        import json
+
+        endpoint = cf.ensure('nlu_multilang_servant')
+        print('.. with endpoing', endpoint)
+        result = invoke_nlu(endpoint, lang, "current", sents)
+        if result != None:
+            print(json.dumps(result, indent=4, ensure_ascii=False))
+            intent = result["intent"]
+            print('%s -> %f' % (intent['name'], intent['confidence']))
+            entities = result['entities']
+            print('entities ->', [ent['entity'] for ent in entities])
+
+    def nlu_reload(self, lang='en'):
+        """
+        * DO NOT USED *
+        $ python -m saai.saai_cli nlu_reload en
+        :param bot:
+        :return:
+        """
+        response = requests.post(f'http://localhost:18099/reload_nlu', json={'mod': lang})
+        print('status code:', response.status_code)
+        # return response.json()
+
     def multilang_nlu(self, lang, text):
         """
         $ python -m saai.saai_cli multilang_nlu en 'hi'

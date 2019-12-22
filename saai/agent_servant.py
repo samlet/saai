@@ -96,6 +96,27 @@ class AgentServ(object):
         resp={mod:'ok'}
         return web.json_response(resp, dumps=functools.partial(json.dumps, indent=4))
 
+    # Notice: 在servant模式下训练nlu模块是有问题的(rasa-1.6), 所以目前不要使用在线训练nlu,
+    # 而是通过命令行形式来进行, 如: $ python -m saai.nlu_mod_procs train en
+    async def handle_reload_nlu(self, request):
+        from saai.nlu_mod_procs import nlu_mods
+
+        data = await request.json()
+        # ignore parameter 'model'
+        if not ensure_paras(['mod'], data):
+            # 400 Bad Request
+            return web.json_response({
+                'error': 'invalidate parameters',
+                'method': 'handle_reload_nlu',
+                'data': dict(data),
+                'headers': dict(request.headers),
+            }, status=400, dumps=functools.partial(json.dumps, indent=4))
+
+        mod = data['mod']
+        result=nlu_mods.reload(mod)
+        resp={mod:result}
+        return web.json_response(resp, dumps=functools.partial(json.dumps, indent=4))
+
     async def handle_parse(self, request):
         from saai.nlu_mod_procs import nlu_mods
         data = await request.json()
@@ -123,6 +144,7 @@ class AgentServ(object):
         app.router.add_post('/message/{sender}', self.handle_message)
         app.router.add_post('/parse', self.handle_parse)
         app.router.add_post('/reload', self.handle_reload)
+        app.router.add_post('/reload_nlu', self.handle_reload_nlu)
 
         return app
 

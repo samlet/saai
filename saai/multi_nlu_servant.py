@@ -5,6 +5,10 @@ from sanic.response import json
 
 app = Sanic(__name__)
 
+"""
+multi_nlu_servant.py: 兼容rasa-nlu-1.x的http接口的servant
+"""
+
 @app.post('/simulate/<lang_id>/model/parse')
 async def post_handler(request, lang_id):
     reqdata=request.json

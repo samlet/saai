@@ -44,8 +44,8 @@ else
 	    # $rasa run actions.actions
 	    ;;
 	"saya_actions")
-		cd bots/saya
-		$rasa run actions.actions
+		cd bots/saya && $python -m rasa_sdk --actions actions.actions
+		# $rasa run actions.actions
 		;;
 	"saya_nlg")
 	    $python -m saai.nlg.nlg_server --domain /pi/ws/sagas-ai/bots/saya/domain.yml	    
