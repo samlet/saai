@@ -14,7 +14,8 @@ from rasa.core.channels.channel import UserMessage
 class BotsConf(object):
     def __init__(self, conf='/pi/ws/sagas-ai/conf/agents.json'):
         import json_utils
-        self.endpoint = EndpointConfig("http://localhost:5055/webhook")
+
+        # self.endpoint = EndpointConfig("http://localhost:5055/webhook")
         self.conf=conf
         conf_data=json_utils.read_json_file(self.conf)
         # bot_locs={'genesis': '/pi/ws/sagas-ai/bots/genesis'}
@@ -22,6 +23,11 @@ class BotsConf(object):
         self.config_file=conf_data['config_file']
         self.templates_dir='/pi/ws/sagas-ai/templates'
         self.ruleset_files='/pi/stack/conf/ruleset_*.json'
+
+    def get_endpoint(self, bot:Text):
+        from saai.runtime import runtime
+        bot_endpoint=f"{bot}_actions" if runtime.is_docker() else 'localhost'
+        return EndpointConfig(f"http://{bot_endpoint}:5055/webhook")
 
 def generate_domain_file(conf:BotsConf):
     cnt = io_utils.read_yaml_file(f'{conf.templates_dir}/domain.yml')
@@ -54,7 +60,7 @@ async def load_agent(bot:Text, conf:BotsConf) -> Agent:
     # load it
     bot_loc = get_latest_model(f"{conf.bot_locs[bot]}/models")
     print(f'.. load bot model {bot_loc}')
-    agent = Agent.load(bot_loc, action_endpoint=conf.endpoint)
+    agent = Agent.load(bot_loc, action_endpoint=conf.get_endpoint(bot))
     return agent
 
 agents={}
@@ -69,6 +75,14 @@ async def handle_message(mod, text, sender, conf:BotsConf):
     return await agent.handle_message(message)
 
 class AgentProcs(object):
+    def env(self):
+        """
+        $ python -m saai.agent_procs env
+        :return:
+        """
+        conf=BotsConf()
+        print(conf.get_endpoint('genesis').url)
+
     def tests(self, bot='genesis'):
         """
         $ python -m saai.agent_procs tests

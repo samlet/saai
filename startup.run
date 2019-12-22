@@ -40,12 +40,12 @@ else
 	    $python -m saai.agent_servant app agents_prod
 	    ;;
 	"genesis_actions")
-	    cd bots/genesis
-	    $rasa run actions
+	    cd bots/genesis && $python -m rasa_sdk --actions actions.actions
+	    # $rasa run actions.actions
 	    ;;
 	"saya_actions")
 		cd bots/saya
-		$rasa run actions
+		$rasa run actions.actions
 		;;
 	"saya_nlg")
 	    $python -m saai.nlg.nlg_server --domain /pi/ws/sagas-ai/bots/saya/domain.yml	    

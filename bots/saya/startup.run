@@ -25,7 +25,8 @@ else
 		start_inventory
 		;;
 	"actions")
-	    $rasa run actions
+	    # $rasa run actions
+	    $python -m rasa_sdk --actions actions.actions
 	    ;;
 	"shell")
 	    $rasa shell
