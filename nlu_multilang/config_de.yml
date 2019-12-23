@@ -11,4 +11,4 @@ pipeline:
 - name: "EmbeddingIntentClassifier"
 - name: "DucklingHTTPExtractor"
   locale: "de_Nothing"
-  url: "http://localhost:8000"
+  url: "http://samlet:8000"
