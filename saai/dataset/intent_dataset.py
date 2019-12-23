@@ -6,7 +6,7 @@ from pathlib import Path
 
 from future.utils import with_metaclass
 
-from snips_nlu.constants import UTTERANCES, SLOT_NAME, ENTITY, TEXT, DATA
+from saai.dataset.constants import UTTERANCES, SLOT_NAME, ENTITY, TEXT, DATA
 
 INTENT_FORMATTING_ERROR = AssertionError(
     "Intent file is not properly formatted")
