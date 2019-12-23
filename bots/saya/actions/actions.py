@@ -23,7 +23,8 @@ class ActionHelloWorld(Action):
 class ActionMyKB(ActionQueryKnowledgeBase):
     def __init__(self):
         # load knowledge base with data from the given file
-        knowledge_base = InMemoryKnowledgeBase("seed/knowledge_base_data.json")
+        # prefix='/pi/ws/sagas-ai/bots/saya'
+        knowledge_base = InMemoryKnowledgeBase(f"seed/knowledge_base_data.json")
 
         # overwrite the representation function of the hotel object
         # by default the representation function is just the name of the object

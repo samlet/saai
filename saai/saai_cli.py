@@ -94,14 +94,20 @@ class SaaiCli(object):
 
     def nlu_reload(self, lang='en'):
         """
-        * DO NOT USED *
         $ python -m saai.saai_cli nlu_reload en
+        # or train and reload in docker env
+        $ docker exec -it sagas_agent_servant_1 python -m saai.saai_cli nlu_reload en
+
         :param bot:
         :return:
         """
+        from saai.nlu_mod_procs import train_mod
+        print('.. training')
+        train_mod(lang)
+        print('.. reloading')
         response = requests.post(f'http://localhost:18099/reload_nlu', json={'mod': lang})
         print('status code:', response.status_code)
-        # return response.json()
+        return response.json()
 
     def multilang_nlu(self, lang, text):
         """

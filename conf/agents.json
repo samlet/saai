@@ -1,4 +1,11 @@
 {
-  "bot_locs":{"genesis": "/pi/ws/sagas-ai/bots/genesis"},
-  "config_file": "config.yml"
+  "genesis": {
+    "location":"/pi/ws/sagas-ai/bots/genesis",
+    "config_file": "config.yml"
+  },
+  "saya": {
+    "location":"/pi/ws/sagas-ai/bots/saya",
+    "config_file": "config.yml",
+    "multilang": ["en"]
+  }
 }

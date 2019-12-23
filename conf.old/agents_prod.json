@@ -1,0 +1,4 @@
+{
+  "bot_locs":{"genesis": "/pi/ws/sagas-ai/bots/genesis"},
+  "config_file": "config_def.yml"
+}

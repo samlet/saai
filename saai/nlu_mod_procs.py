@@ -43,7 +43,7 @@ class NluMods(object):
         return await intepret(self.mods[lang], sents)
 
     def reload(self, lang):
-        train_mod(lang)
+        # train_mod(lang)
         self.mods[lang] = load_mod(lang)
         # return await intepret(self.mods[lang], 'hi')
         return True

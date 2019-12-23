@@ -13,16 +13,26 @@ from rasa.core.channels.channel import UserMessage
 
 class BotsConf(object):
     def __init__(self, conf='/pi/ws/sagas-ai/conf/agents.json'):
-        import json_utils
+        # import json_utils
+        from python_json_config import ConfigBuilder
 
         # self.endpoint = EndpointConfig("http://localhost:5055/webhook")
         self.conf=conf
-        conf_data=json_utils.read_json_file(self.conf)
+        # conf_data=json_utils.read_json_file(self.conf)
+        builder = ConfigBuilder()
+        self.config = builder.parse_config(conf)
         # bot_locs={'genesis': '/pi/ws/sagas-ai/bots/genesis'}
-        self.bot_locs = conf_data['bot_locs']
-        self.config_file=conf_data['config_file']
+        # self.bot_locs = conf_data['bot_locs']
+        # self.config_file=conf_data['config_file']
+
         self.templates_dir='/pi/ws/sagas-ai/templates'
         self.ruleset_files='/pi/stack/conf/ruleset_*.json'
+
+    def get_loc(self, bot:Text):
+        return self.config.get(bot).location
+
+    def get_config(self, bot:Text):
+        return self.config.get(bot).config_file
 
     def get_endpoint(self, bot:Text):
         from sagas.conf.runtime import runtime
@@ -43,13 +53,13 @@ def generate_domain_file(conf:BotsConf):
 async def train_agent(bot:Text, conf:BotsConf):
     cnt=generate_domain_file(conf)
 
-    prefix = f"{conf.bot_locs[bot]}"
+    prefix = f"{conf.get_loc(bot)}"
     # domain_file="./out/domain_1.yml"
     domain_file = f"{prefix}/domain.yml"
     io_utils.write_yaml_file(cnt, domain_file)
     await train_async(
         domain=domain_file,
-        config=f"{prefix}/{conf.config_file}",
+        config=f"{prefix}/{conf.get_config(bot)}",
         training_files=f"{prefix}/data/",
         output_path=f"{prefix}/models/",
     )
@@ -58,7 +68,7 @@ async def load_agent(bot:Text, conf:BotsConf) -> Agent:
     # train it
     await train_agent(bot, conf)
     # load it
-    bot_loc = get_latest_model(f"{conf.bot_locs[bot]}/models")
+    bot_loc = get_latest_model(f"{conf.get_loc(bot)}/models")
     print(f'.. load bot model {bot_loc}')
     agent = Agent.load(bot_loc, action_endpoint=conf.get_endpoint(bot))
     return agent
@@ -82,6 +92,8 @@ class AgentProcs(object):
         """
         conf=BotsConf()
         print(conf.get_endpoint('genesis').url)
+        print(conf.get_loc('genesis'))
+        print(conf.get_config('genesis'))
 
     def tests(self, bot='genesis'):
         """
