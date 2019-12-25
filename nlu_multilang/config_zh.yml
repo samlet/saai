@@ -3,6 +3,8 @@ language: "zh"
 pipeline:
 - name: "saai.multilang_tokenizer.MultilangTokenizer"
   lang: "zh"
+- name: "saai.ner_facade.FacadeEntityExtractor"
+  route: "zh"
 - name: "RegexFeaturizer"
 - name: "CRFEntityExtractor"
 - name: "EntitySynonymMapper"

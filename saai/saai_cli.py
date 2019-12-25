@@ -4,6 +4,8 @@ from rasa.nlu.training_data import TrainingData, Message
 from rasa.nlu.tokenizers.whitespace_tokenizer import WhitespaceTokenizer
 import requests
 import asyncio
+from pprint import pprint
+import sagas.tracker_fn as tc
 
 def testing_tokenizer(text, cls, lang='en'):
     defaults = {
@@ -59,6 +61,18 @@ class SaaiCli(object):
         print('status code:', response.status_code)
         return response.json()
 
+    def nlu_ner(self, route, sents):
+        """
+        $ python -m saai.saai_cli nlu_ner spacy/en "I was born in Beijing."
+        :param route:
+        :param sents:
+        :return:
+        """
+        data={"sents":sents}
+        response = requests.post(f'http://localhost:1700/ner/{route}', json=data)
+        print('status code:', response.status_code)
+        pprint(response.json())
+
     def bot_reload(self, bot='genesis'):
         """
         $ python -m saai.saai_cli bot_reload genesis
@@ -69,10 +83,14 @@ class SaaiCli(object):
         print('status code:', response.status_code)
         return response.json()
 
-    def nlu_parse(self, sents, lang):
+    def nlu_parse(self, sents, lang='en'):
         """
         $ python -m saai.saai_cli nlu_parse "Shenzhen ist das Silicon Valley für Hardware-Firmen" de
         $ python -m saai.saai_cli nlu_parse '附近有什么好吃的' zh
+        $ python -m saai.saai_cli nlu_parse '六安市公安局裕安分局平桥派出所接到辖区居民戴某报警' zh
+        $ python -m saai.saai_cli nlu_parse "I was born in Beijing." en
+        $ python -m saai.saai_cli nlu_parse "Я хочу поехать в москву" ru
+        $ python -m saai.saai_cli nlu_parse "Jokowi pergi ke Singapura." id
 
         :param sents:
         :param lang:
@@ -82,10 +100,12 @@ class SaaiCli(object):
         from sagas.nlu.rasa_procs import invoke_nlu
         import json
 
+
         endpoint = cf.ensure('nlu_multilang_servant')
         print('.. with endpoing', endpoint)
         result = invoke_nlu(endpoint, lang, "current", sents)
-        if result != None:
+        tc.emp('yellow', result)
+        if result != None and len(result)>0:
             print(json.dumps(result, indent=4, ensure_ascii=False))
             intent = result["intent"]
             print('%s -> %f' % (intent['name'], intent['confidence']))
