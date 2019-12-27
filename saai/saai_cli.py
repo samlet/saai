@@ -64,6 +64,7 @@ class SaaiCli(object):
     def nlu_ner(self, route, sents):
         """
         $ python -m saai.saai_cli nlu_ner spacy/en "I was born in Beijing."
+        $ python -m saai.saai_cli nlu_ner id "Jokowi pergi ke Singapura."
         :param route:
         :param sents:
         :return:
@@ -107,6 +108,7 @@ class SaaiCli(object):
         tc.emp('yellow', result)
         if result != None and len(result)>0:
             print(json.dumps(result, indent=4, ensure_ascii=False))
+
             intent = result["intent"]
             print('%s -> %f' % (intent['name'], intent['confidence']))
             entities = result['entities']
