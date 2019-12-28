@@ -1,20 +1,26 @@
+from typing import Text, Dict, Sequence, List
 import json
 import json_utils
 import io
+import logging
+
+logger = logging.getLogger(__name__)
 
 class EntityData(object):
-    def __init__(self, start, end, value, entity):
+    def __init__(self, start, end, value, entity, norm):
         self.start=start
         self.end=end
         self.value=value
         self.entity=entity
+        self.norm=norm
+        # print('..', self.norm)
         
     @property
     def json(self):
         return {
             "start":self.start,
             "end":self.end,
-            "value":self.value,
+            "value":self.value if self.norm=='o' else self.norm,
             "entity":self.entity
         }
     
@@ -22,7 +28,10 @@ class FactData(object):
     def __init__(self, text, intent):
         self.text=text
         self.intent=intent
-        self.entities=[]
+        self.entities=[]  # EntityData
+
+    def collect_synonyms(self):
+        return [(x.norm, x.value) for x in self.entities if x.norm!='o']
         
     @property
     def json(self):
@@ -34,17 +43,28 @@ class FactData(object):
     
 class NluData(object):
     def __init__(self):
-        self.examples=[]
-        
+        self.examples=[]  # FactData
+
+    def group_synonyms(self):
+        import itertools
+        import operator
+        all_norms=[]
+        for l in self.examples:
+            all_norms.extend(l.collect_synonyms())
+        it = itertools.groupby(all_norms, operator.itemgetter(0))
+        for key, subiter in it:
+            yield {"value":key, "synonyms": [item[1] for item in subiter]}
+
     @property
     def json(self):
         return {
           "rasa_nlu_data": {
-            "common_examples": [u.json for u in self.examples]
+            "common_examples": [u.json for u in self.examples],
+            'entity_synonyms': list(self.group_synonyms())
           }
         }
 
-def parse(dataset, intent, sentence):
+def parse(dataset:NluData, intent:Text, sentence:Text):
     from saai.dataset.intent_dataset import IntentUtterance, SlotChunk
     # from snips_nlu.dataset.intent import IntentUtterance, SlotChunk
     u = IntentUtterance.parse(sentence)
@@ -52,10 +72,11 @@ def parse(dataset, intent, sentence):
     # fact = FactData(u.text, intent)
     for chunk in u.chunks:    
         if type(chunk)==SlotChunk:
-            print("\t{}: {}-{}".format(chunk.text,
+            logger.debug("{}: {}-{}".format(chunk.text,
                 chunk.range.start,
                 chunk.range.end))
-            entity=EntityData(chunk.range.start, chunk.range.end, chunk.text, chunk.name)
+            entity=EntityData(chunk.range.start, chunk.range.end,
+                              chunk.text, chunk.name, chunk.entity)
             fact.entities.append(entity)
     dataset.examples.append(fact)
 
@@ -82,16 +103,15 @@ class CorpusProcs(object):
             if len(children)>0:
                 for c in children:
                     # print("\t{}-{}: {}({})".format(c["start"], c["end"], c["value"], c["entity"]))
-                    entity=EntityData(c["start"], c["end"], c["value"], c["entity"])
+                    entity=EntityData(c["start"], c["end"], c["value"], c["entity"], c["value"])
                     fact.entities.append(entity)
             dataset.examples.append(fact)
         print(json.dumps(dataset.json, indent=2, sort_keys=False, ensure_ascii=False))
 
     ## ./corpus_procs.py gen_dataset corpus/cn-Samples.md json/cn-Samples.json
     def gen_dataset(self, filename, output):
-        f = open(filename)
-        lines=f.readlines()
-        f.close()
+        with open(filename) as f:
+            lines=f.readlines()
 
         dataset=NluData()
         intent=""
@@ -99,7 +119,7 @@ class CorpusProcs(object):
             line_s=line.strip()
             if line.startswith("##"):        
                 intent=line[3:].strip()
-                print("☈", intent)
+                logger.debug(intent)
             elif len(line_s)==0 or line_s.startswith("#"):
                 pass
             else:
@@ -110,7 +130,7 @@ class CorpusProcs(object):
         with io.open(output, 'w', encoding="utf-8") as f:
             f.write(result)
 
-        print(f".. write to {output} ok.")
+        logger.info(f".. write to {output} ok.")
 
     def gen_datasets(self, lang_prefix='cn', target_prefix='/pi/ws/sagas-ai/nlu_multilang/zh/'):
         import glob

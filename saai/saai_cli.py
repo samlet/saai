@@ -89,6 +89,7 @@ class SaaiCli(object):
         $ python -m saai.saai_cli nlu_parse "Shenzhen ist das Silicon Valley für Hardware-Firmen" de
         $ python -m saai.saai_cli nlu_parse '附近有什么好吃的' zh
         $ python -m saai.saai_cli nlu_parse '六安市公安局裕安分局平桥派出所接到辖区居民戴某报警' zh
+        $ python -m saai.saai_cli nlu_parse '一直打喷嚏怎么办' zh
         $ python -m saai.saai_cli nlu_parse "I was born in Beijing." en
         $ python -m saai.saai_cli nlu_parse "Я хочу поехать в москву" ru
         $ python -m saai.saai_cli nlu_parse "Jokowi pergi ke Singapura." id

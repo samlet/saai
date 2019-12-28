@@ -8,7 +8,7 @@
           {
             "start": 7,
             "end": 10,
-            "value": "麻辣烫",
+            "value": "spicy",
             "entity": "food"
           }
         ]
@@ -30,7 +30,7 @@
           {
             "start": 3,
             "end": 5,
-            "value": "拉面",
+            "value": "ramen",
             "entity": "food"
           }
         ]
@@ -42,7 +42,7 @@
           {
             "start": 0,
             "end": 2,
-            "value": "感冒",
+            "value": "cold",
             "entity": "disease"
           }
         ]
@@ -66,7 +66,7 @@
           {
             "start": 2,
             "end": 5,
-            "value": "打喷嚏",
+            "value": "cold",
             "entity": "disease"
           }
         ]
@@ -146,6 +146,27 @@
         "text": "7月10日晚上7点左右，六安市公安局裕安分局平桥派出所接到辖区居民戴某报警",
         "intent": "about_date",
         "entities": []
+      }
+    ],
+    "entity_synonyms": [
+      {
+        "value": "spicy",
+        "synonyms": [
+          "麻辣烫"
+        ]
+      },
+      {
+        "value": "ramen",
+        "synonyms": [
+          "拉面"
+        ]
+      },
+      {
+        "value": "cold",
+        "synonyms": [
+          "感冒",
+          "打喷嚏"
+        ]
       }
     ]
   }

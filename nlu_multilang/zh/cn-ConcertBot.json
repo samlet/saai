@@ -93,6 +93,7 @@
         "intent": "compare_reviews",
         "entities": []
       }
-    ]
+    ],
+    "entity_synonyms": []
   }
 }

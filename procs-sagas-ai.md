@@ -22,6 +22,10 @@ $ curl localhost:2000/model/parse -d '{"text":"卵を食べる"}' | json
 $ start train_zh
 $ start nlu zh 2000
 $ curl localhost:2000/model/parse -d '{"text":"几台电脑"}' | json
+# only convert corpus
+$ python -m saai.tools.corpus_procs gen_datasets cn '/pi/ws/sagas-ai/nlu_multilang/zh/'
+# 得到'打喷嚏'对应的标准化名称, 即标记"[disease:cold](打喷嚏)"中的'cold'
+$ python -m saai.saai_cli nlu_parse '一直打喷嚏怎么办' zh
 
 # for en
 $ start train en

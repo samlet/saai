@@ -1,14 +1,14 @@
 # cn-Samples.md
 ## restaurant_search
-这附近哪里有吃[food:o](麻辣烫)的地方
+这附近哪里有吃[food:spicy](麻辣烫)的地方
 想去一家有情调的餐厅
 附近有什么好吃的地方吗
-找个吃[food:o](拉面)的店
+找个吃[food:ramen](拉面)的店
 
 ## medical
-[disease:o](感冒)了怎么办
+[disease:cold](感冒)了怎么办
 我[disease:o](胃痛)，该吃什么药？
-一直[disease:o](打喷嚏)怎么办
+一直[disease:cold](打喷嚏)怎么办
 父母都有[disease:o](高血压)，我会遗传吗
 
 ## medical_department
