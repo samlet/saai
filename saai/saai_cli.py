@@ -1,13 +1,9 @@
-from saai.multilang_tokenizer import MultilangTokenizer
-
-from rasa.nlu.training_data import TrainingData, Message
-from rasa.nlu.tokenizers.whitespace_tokenizer import WhitespaceTokenizer
 import requests
 import asyncio
 from pprint import pprint
-import sagas.tracker_fn as tc
 
 def testing_tokenizer(text, cls, lang='en'):
+    from rasa.nlu.training_data import TrainingData, Message
     defaults = {
         # Flag to check whether to split intents
         "intent_tokenization_flag": False,
@@ -28,6 +24,10 @@ def testing_tokenizer(text, cls, lang='en'):
         print(token.text, token.offset)
 
 class SaaiCli(object):
+    def version(self):
+        from saai.version import __version__
+        print(f"saai version: {__version__}")
+
     def comps(self):
         """
         $ python -m saai.saai_cli comps
@@ -47,6 +47,7 @@ class SaaiCli(object):
         :param lang:
         :return:
         """
+        from saai.multilang_tokenizer import MultilangTokenizer
         print(testing_tokenizer(text, MultilangTokenizer, lang))
 
     def bot_message(self, lang='en'):
@@ -103,7 +104,7 @@ class SaaiCli(object):
         from sagas.conf.conf import cf
         from sagas.nlu.rasa_procs import invoke_nlu
         import json
-
+        import sagas.tracker_fn as tc
 
         endpoint = cf.ensure('nlu_multilang_servant')
         print('.. with endpoing', endpoint)
