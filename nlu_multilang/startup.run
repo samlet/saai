@@ -66,6 +66,16 @@ else
         $python -m saai.tools.corpus_procs gen_datasets cn '/pi/ws/sagas-ai/nlu_multilang/zh/'
         train zh
 	    ;;
+	"train_jieba")
+	    $python -m saai.tools.corpus_procs gen_datasets cn '/pi/ws/sagas-ai/nlu_multilang/zh_jieba/'
+	    $rasa train nlu \
+		    --config config_zh_jieba.yml \
+		    --nlu zh_jieba/ \
+		    --fixed-model-name zh_jieba_current
+	    ;;
+	"nlu_jieba")
+	    $rasa run --enable-api -m models/zh_jieba_current.tar.gz -p 5566
+	    ;;
 	"prepare_ja")
 	    $python -m saai.tools.corpus_procs gen_datasets ja '/pi/ws/sagas-ai/nlu_multilang/ja/'
 	    ;;
@@ -86,7 +96,11 @@ else
 #		;;
 	"query_ja")
 	    # curl -XPOST localhost:2000/model/parse -d '{"q":"卵を食べる", "project":"ja", "model":"current"}'
-	    curl localhost:2000/model/parse -d '{"text":"卵を食べる"}' | json
+	    curl -s localhost:2000/model/parse -d '{"text":"卵を食べる"}' | json
+	    ;;
+	"query_zh")
+	    # curl -XPOST localhost:2000/model/parse -d '{"q":"卵を食べる", "project":"ja", "model":"current"}'
+	    curl -s -XPOST localhost:5566/model/parse -d '{"text":"7月10日晚上7点左右，六安市公安局裕安分局平桥派出所接到辖区居民戴某报警"}' | json
 	    ;;
 #	"query_zh")
 	    # curl -XPOST localhost:5000/parse -d '{"q":"找地方吃饭", "project":"zh", "model":"current"}'

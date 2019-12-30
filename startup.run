@@ -23,9 +23,17 @@ else
 	"redis")
 		start_docker redis "$msg_redis"
 		;;
-	"inventory")
-		start_inventory
+	"build")
+		$python setup.py sdist bdist_wheel
 		;;
+    "local")
+        pip install --no-deps -e .
+        ;;
+    "dist")
+	    rm ./dist/*
+        python setup.py sdist bdist_wheel
+        python -m twine upload dist/*
+	    ;;
 	"note")		
 		$jupyter notebook
 		;;

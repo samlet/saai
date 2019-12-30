@@ -3,6 +3,8 @@ __pycache__/
 models/
 models_kb/
 out/
-
+dist/
+build/
+*.egg-info
 
 

@@ -31,6 +31,8 @@ class SaaiCli(object):
     def comps(self):
         """
         $ python -m saai.saai_cli comps
+        $ python -m saai comps
+
         :return:
         """
         from rasa.nlu import config
@@ -85,7 +87,7 @@ class SaaiCli(object):
         return response.json()
 
     def nlu_parse(self, sents, lang='en'):
-        """
+        """ Nlu parse routines
         $ python -m saai.saai_cli nlu_parse "Shenzhen ist das Silicon Valley für Hardware-Firmen" de
         $ python -m saai.saai_cli nlu_parse '附近有什么好吃的' zh
         $ python -m saai.saai_cli nlu_parse '六安市公安局裕安分局平桥派出所接到辖区居民戴某报警' zh

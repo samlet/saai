@@ -1,4 +1,6 @@
 projects/
 models/
 last_timestamps.json
+*.egg-info
+zh_jieba/*.json
 
