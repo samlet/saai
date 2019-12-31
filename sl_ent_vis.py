@@ -5,11 +5,10 @@ from interacts.sl_utils import all_labels, write_styles
 from interacts.tracker_streamlit import enable_streamlit_tracker
 
 from saai.ner_jieba import extract_entities
+from sl_utils import HTML_WRAPPER
 
 enable_streamlit_tracker()
 write_styles()
-
-HTML_WRAPPER = """<div style="overflow-x: auto; border: 1px solid #e6e9ef; border-radius: 0.25rem; padding: 1rem; margin-bottom: 2.5rem">{}</div>"""
 
 def sidebar():
     cur_lang=display_lang_selector()
