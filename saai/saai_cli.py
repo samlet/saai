@@ -148,17 +148,6 @@ class SaaiCli(object):
         loop = asyncio.get_event_loop()
         return loop.run_until_complete(multi_nlu.multilang(lang, text))
 
-    def gen_corpus(self):
-        from saai.tools.corpus_procs import CorpusProcs
-        proc=CorpusProcs()
-        proc.gen_local()
-
-    def train(self):
-        import subprocess
-
-        self.gen_corpus()
-        subprocess.run(["rasa", "train"])
-
 if __name__ == '__main__':
     import fire
     from sagas.tool.loggers import init_logger
