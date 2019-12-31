@@ -141,6 +141,18 @@ class CorpusProcs(object):
         for f in trans_files:
             self.gen_dataset(f[0], f[1])
 
+    def gen_local(self):
+        import glob
+        import os
+
+        target_prefix='./data/'
+        prefix='./corpus'
+        trans_files = [(x, target_prefix + os.path.basename(x).replace('.md', '.json')) for x in
+                       glob.glob(f'{prefix}/*.md')]
+        for f in trans_files:
+            print(f'.. generate {f[0]} -> {f[1]}')
+            self.gen_dataset(f[0], f[1])
+
 if __name__ == '__main__':
     import fire
     fire.Fire(CorpusProcs)
