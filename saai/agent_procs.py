@@ -4,6 +4,7 @@ import asyncio
 import glob
 from rasa.train import train_async
 import rasa.utils.io as io_utils
+import logging
 
 from rasa.utils.endpoints import ClientResponseError, EndpointConfig
 from rasa.core.agent import Agent
@@ -11,21 +12,24 @@ from rasa.core.interpreter import RasaNLUInterpreter
 from rasa.model import get_model, get_latest_model
 from rasa.core.channels.channel import UserMessage
 
+logger = logging.getLogger(__name__)
+
 class BotsConf(object):
-    def __init__(self, conf='/pi/ws/sagas-ai/conf/agents.json'):
+    def __init__(self, conf='agents.json'):
         # import json_utils
         from python_json_config import ConfigBuilder
+        from saai.saai_conf import saai_conf
 
         # self.endpoint = EndpointConfig("http://localhost:5055/webhook")
-        self.conf=conf
+        self.conf=f"{saai_conf.runtime_dir}/conf/{conf}"
         # conf_data=json_utils.read_json_file(self.conf)
         builder = ConfigBuilder()
-        self.config = builder.parse_config(conf)
+        self.config = builder.parse_config(self.conf)
         # bot_locs={'genesis': '/pi/ws/sagas-ai/bots/genesis'}
         # self.bot_locs = conf_data['bot_locs']
         # self.config_file=conf_data['config_file']
 
-        self.templates_dir='/pi/ws/sagas-ai/templates'
+        self.templates_dir=f'{saai_conf.runtime_dir}/templates'
         self.ruleset_files='/pi/stack/conf/ruleset_*.json'
 
     def get_loc(self, bot:Text):

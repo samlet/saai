@@ -17,6 +17,7 @@ REQUIRED = [
     "jieba",
     "simplejson",
     "paddlepaddle-tiny",
+    "sagas>=0.1.1",
 ]
 
 setuptools.setup(
@@ -38,7 +39,7 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
     package_data={
-              'conf': ['*'],
+              'saai': ['conf/*', 'templates/*'],
               'data': ['knowledge-base/*']},
     # $ setup.py publish support.
     # cmdclass={

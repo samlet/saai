@@ -153,9 +153,9 @@ class ServantRunner(object):
         """
         $ python -m saai.agent_servant app
         """
-        conf_prefix='/pi/ws/sagas-ai/conf'
+        # conf_prefix='/pi/ws/sagas-ai/saai/conf'
         if not conf.startswith('/'):
-            conf=f"{conf_prefix}/{conf}.json"
+            conf=f"{conf}.json"
         serv = AgentServ(conf)
         v_loop = asyncio.get_event_loop()
         v_loop.set_debug(True)
