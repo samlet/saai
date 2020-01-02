@@ -17,7 +17,8 @@ REQUIRED = [
     "jieba",
     "simplejson",
     "paddlepaddle-tiny",
-    "sagas>=0.1.1",
+    "sagas>=0.1.2",
+    "python_json_config",
 ]
 
 setuptools.setup(
