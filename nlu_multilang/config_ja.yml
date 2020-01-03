@@ -3,6 +3,8 @@ language: "ja"
 pipeline:
 - name: "saai.multilang_tokenizer.MultilangTokenizer"
   lang: "ja"
+- name: "saai.ner_facade.FacadeEntityExtractor"
+  route: "ja"
 - name: "RegexFeaturizer"
 - name: "CRFEntityExtractor"
 - name: "EntitySynonymMapper"

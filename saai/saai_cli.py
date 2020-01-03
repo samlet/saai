@@ -138,15 +138,22 @@ class SaaiCli(object):
     def multilang_nlu(self, lang, text):
         """
         $ python -m saai.saai_cli multilang_nlu en 'hi'
+        $ python -m saai.saai_cli multilang_nlu en "I was born in Beijing."
+        $ python -m saai.saai_cli multilang_nlu en "I was born in the spring of 1982."
+        $ python -m saai.saai_cli multilang_nlu en "tomorrow at eight"
+        $ python -m saai.saai_cli multilang_nlu ja "太郎は5月18日の朝9時に花子に会いに行った"
+        $ python -m saai.saai_cli multilang_nlu ja "お皿を二枚ください。"
 
         :param lang:
         :param text:
         :return:
         """
         from saai.multi_nlu_client import multi_nlu
+        from pprint import pprint
 
         loop = asyncio.get_event_loop()
-        return loop.run_until_complete(multi_nlu.multilang(lang, text))
+        r= loop.run_until_complete(multi_nlu.multilang(lang, text))
+        pprint(r)
 
 if __name__ == '__main__':
     import fire

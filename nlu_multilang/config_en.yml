@@ -9,4 +9,6 @@ pipeline:
 - name: "EntitySynonymMapper"
 - name: "CountVectorsFeaturizer"
 - name: "EmbeddingIntentClassifier"
+- name: "DucklingHTTPExtractor"
+  url: "http://samlet:8000"
 
