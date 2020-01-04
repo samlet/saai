@@ -19,6 +19,7 @@ REQUIRED = [
     "paddlepaddle-tiny",
     "sagas>=0.1.2",
     "python_json_config",
+    "python-dotenv",
 ]
 
 setuptools.setup(
@@ -31,7 +32,9 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/samlet/saai",
     packages=["", *find_packages(exclude=('bots', 'tests', 'fsm', ))],
-    entry_points={"console_scripts": ["saai=saai.__main__:main"]},
+    entry_points={"console_scripts": ["saai=saai.__main__:main",
+                                      "saash=saai.shell.__main__:shell_main",
+                                      ]},
     install_requires=REQUIRED,
     classifiers=[
         "Programming Language :: Python :: 3",

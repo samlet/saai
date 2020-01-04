@@ -1,7 +1,7 @@
 #!/bin/bash
-export PYTHONPATH=/pi/stack:$PYTHONPATH
-
-honcho="$HOME/miniconda3/envs/rasa/bin/honcho"
+#export PYTHONPATH=/pi/stack:$PYTHONPATH
+#honcho="$HOME/miniconda3/envs/rasa/bin/honcho"
+honcho='foreman'
 python="$HOME/miniconda3/envs/rasa/bin/python"
 
 alias s1="$honcho start"
