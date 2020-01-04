@@ -79,8 +79,9 @@ def _user_input(button_question: questionary.Question) -> Optional[Text]:
         ).ask()
 
     text= response.strip() if response is not None else None
-    if text is not None and not text.startswith(INTENT_MESSAGE_PREFIX):
-        subprocess.call(['sagas', 'vis', text, sett.lang])
+    if not sett.is_disable_analyse:
+        if text is not None and not text.startswith(INTENT_MESSAGE_PREFIX):
+            subprocess.call(['sagas', 'vis', text, sett.lang])
     return text
 
 def inject():
