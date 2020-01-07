@@ -79,6 +79,9 @@ $ start saya_en
 $ python -m saai.saai_cli multilang_nlu en 'hi'
 ```
 
+## issues
+* 用foreman或honcho启动多服务不成功时, 有可能会导致某些服务未退出而占用了端口号, 简单的解决方法就是:
+* `killall python`
 
 
 

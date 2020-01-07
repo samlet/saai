@@ -26,7 +26,7 @@ else
 		;;
 	"actions")
 	    # $rasa run actions
-	    $python -m rasa_sdk --actions actions.actions
+	    $python -m rasa_sdk --actions actions.actions --port 5088
 	    ;;
 	"shell")
 	    $rasa shell

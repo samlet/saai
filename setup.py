@@ -36,6 +36,9 @@ setuptools.setup(
                                       "saash=saai.shell.__main__:shell_main",
                                       ]},
     install_requires=REQUIRED,
+    extras_require={
+        'rasa': ['rasa~=1.6.0', 'rasa-sdk~=1.6.0'],
+    },
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

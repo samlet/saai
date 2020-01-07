@@ -1,5 +1,5 @@
 action_endpoint:
-  url: "http://localhost:5055/webhook"
+  url: "http://localhost:5088/webhook"
 
 nlg:
   url: http://localhost:5056/nlg    # url of the nlg endpoint

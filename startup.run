@@ -52,7 +52,7 @@ else
 	    # $rasa run actions.actions
 	    ;;
 	"saya_actions")
-		cd bots/saya && $python -m rasa_sdk --actions actions.actions
+		cd bots/saya && $python -m rasa_sdk --actions actions.actions --port 5088
 		# $rasa run actions.actions
 		;;
 	"saya_nlg")
