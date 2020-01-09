@@ -10,7 +10,7 @@ pipeline:
 - name: "EmbeddingIntentClassifier"
 - name: "DucklingHTTPExtractor"
   locale: "zh_Nothing"
-  url: "http://samlet:8000"
+  url: "http://duckling:8000"
 
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/

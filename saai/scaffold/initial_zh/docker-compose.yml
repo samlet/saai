@@ -2,21 +2,14 @@ version: '3.0'
 
 services:
   rasa:
-    image: rasa/rasa:latest-full
-    networks: ['rasa-network']
+    image: samlet/rasa_zh
     ports:
     - "5005:5005"
     volumes:
     - "./:/app/"
-    command:
-    - run
 
   actions:
-    build:
-      context: "."
-      dockerfile: actions.dockerfile
-    # image: samlet/<xx_actions>
-    networks: ['rasa-network']
+    image: samlet/tour_zh
     ports:
     - "5055:5055"
     volumes:
@@ -29,14 +22,11 @@ services:
 
   duckling:
     image: samlet/duckling:2019-12-22
-    networks: ['rasa-network']
     ports:
     - "8000:8000"
 
   mysql:
-    # image: mysql:5.7
     image: mysql:8
-    networks: ['rasa-network']
     ports:
     - "3306:3306"
     environment:
@@ -51,8 +41,6 @@ services:
       timeout: 20s
       retries: 10
 
-
-networks: {rasa-network: {}}
 volumes:
   db-data:
 

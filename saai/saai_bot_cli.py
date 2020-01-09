@@ -3,6 +3,15 @@ from typing import Text
 import requests
 from pprint import pprint
 
+def ask_overwrite(path: Text) -> None:
+    import questionary
+    import os
+
+    overwrite = questionary.confirm(
+        "Directory '{}' is not empty. Continue?".format(os.path.abspath(path))
+    ).ask()
+    return overwrite
+
 class SaaiBotCli(object):
     def version(self):
         """
@@ -74,12 +83,24 @@ class SaaiBotCli(object):
         print(f"{scaffold_path()}")
 
     def init_proj(self, proto='en', train_it=False):
+        """
+        $ saai init_proj zh True
+        :param proto:
+        :param train_it:
+        :return:
+        """
         from saai.scaffold.project_creator import create_initial_project, train_project
 
         import os
         path=os.path.abspath('.')
+        if len(os.listdir(path)) > 0:
+            if not ask_overwrite(path):
+                return
+
         create_initial_project(path, proto=proto)
         if train_it:
+            if len(os.listdir("./corpus")):
+                self.gen_corpus()
             train_project(path)
 
     def build(self, file:Text):
