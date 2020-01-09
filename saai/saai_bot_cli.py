@@ -1,3 +1,5 @@
+from typing import Text
+
 import requests
 from pprint import pprint
 
@@ -62,3 +64,35 @@ class SaaiBotCli(object):
         response = requests.post(f'http://localhost:5005/conversations/{sender}/tracker/events',
                                  json={'event': 'restart'})
         print('status code:', response.status_code)
+
+    def scaffold_info(self):
+        """
+        $ saai scaffold_info
+        :return:
+        """
+        from saai.scaffold.project_creator import scaffold_path
+        print(f"{scaffold_path()}")
+
+    def init_proj(self, proto='en', train_it=False):
+        from saai.scaffold.project_creator import create_initial_project, train_project
+
+        import os
+        path=os.path.abspath('.')
+        create_initial_project(path, proto=proto)
+        if train_it:
+            train_project(path)
+
+    def build(self, file:Text):
+        """
+        $ saai build servant-stack.dockerfile
+        :param file:
+        :return:
+        """
+        import subprocess
+        if file.endswith('.dockerfile'):
+            image_name=file.replace('.dockerfile', '').replace('-', '_')
+            subprocess.run(["docker", "build",
+                            '-t', f"samlet/{image_name}",
+                            '-f', file, '.'])
+        else:
+            print(".. don't support this file type.")

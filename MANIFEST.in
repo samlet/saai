@@ -4,3 +4,5 @@ exclude .flags
 exclude *.run
 exclude *.ipynb
 exclude *.md
+recursive-include saai/scaffold *
+

@@ -1,0 +1,70 @@
+slots:
+  cuisine:
+    type: text
+  people:
+    type: text
+  location:
+    type: text
+  price:
+    type: text
+  info:
+    type: text
+  place:
+    type: text
+  disease:
+    type: text
+  matches:
+    type: unfeaturized
+
+entities:
+  - location
+  - info
+  - people
+  - price
+  - cuisine
+  - place
+  - disease
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - about_date
+
+actions:
+  - utter_greet
+  - utter_cheer_up
+  - utter_did_that_help
+  - utter_happy
+  - utter_goodbye
+  - utter_iamabot
+  - action_hello_world
+
+templates:
+  utter_greet:
+  - text: "嗨! 你好吗?"
+
+  utter_cheer_up:
+  - text: "这儿有好东西给你看, 嘿嘿:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "帮到你了吗?"
+
+  utter_happy:
+  - text: "很好, 加油!"
+
+  utter_goodbye:
+  - text: "再见"
+
+  utter_iamabot:
+  - text: "我是木头."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+

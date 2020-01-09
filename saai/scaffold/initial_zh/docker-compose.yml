@@ -1,0 +1,58 @@
+version: '3.0'
+
+services:
+  rasa:
+    image: rasa/rasa:latest-full
+    networks: ['rasa-network']
+    ports:
+    - "5005:5005"
+    volumes:
+    - "./:/app/"
+    command:
+    - run
+
+  actions:
+    build:
+      context: "."
+      dockerfile: actions.dockerfile
+    # image: samlet/<xx_actions>
+    networks: ['rasa-network']
+    ports:
+    - "5055:5055"
+    volumes:
+    - "./actions:/app/actions"
+    depends_on:
+      - mysql
+    # restart: on-failure
+    environment:
+      db_host: mysql
+
+  duckling:
+    image: samlet/duckling:2019-12-22
+    networks: ['rasa-network']
+    ports:
+    - "8000:8000"
+
+  mysql:
+    # image: mysql:5.7
+    image: mysql:8
+    networks: ['rasa-network']
+    ports:
+    - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: "%"
+    volumes:
+    - ./docker/data:/docker-entrypoint-initdb.d
+    - db-data:/var/lib/mysql
+    # command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+
+networks: {rasa-network: {}}
+volumes:
+  db-data:
+
