@@ -31,7 +31,9 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/samlet/saai",
-    packages=["", *find_packages(exclude=('bots', 'tests', 'fsm', ))],
+
+    include_package_data=True,
+    packages=["", *find_packages(exclude=('bots', 'tests', 'fsm', 'notebook',))],
     entry_points={"console_scripts": ["saai=saai.__main__:main",
                                       "saash=saai.shell.__main__:shell_main",
                                       ]},
@@ -45,9 +47,10 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
-    package_data={
-              'saai': ['conf/*', 'templates/*'],
-              'data': ['knowledge-base/*']},
+    # package_data={
+    #     'saai': ['conf/*', 'templates/*', 'scaffold/*'],
+    #     'data': ['knowledge-base/*'],
+    # },
     # $ setup.py publish support.
     # cmdclass={
     #     'upload': UploadCommand,

@@ -3,3 +3,7 @@
 
 sagas ai&nlu components.
 
+## start
+```bash
+$ pip install -U saai[rasa]
+```

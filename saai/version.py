@@ -1,2 +1,2 @@
 # do not add anything but the version number here!
-__version__ = "0.2.0"
+__version__ = "0.2.1"
