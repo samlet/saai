@@ -14,9 +14,9 @@ with open("README.md", "r") as fh:
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    "jieba",
+    "jieba~=0.40",
     "simplejson",
-    "paddlepaddle-tiny",
+    "paddlepaddle-tiny~=1.6.1",
     "sagas>=0.1.2",
     "python_json_config",
     "python-dotenv",
@@ -40,7 +40,7 @@ setuptools.setup(
     install_requires=REQUIRED,
     extras_require={
         'rasa': ['rasa~=1.6.0', 'rasa-sdk~=1.6.0'],
-        'dev': ['jupyter', 'streamlit', 'ipymarkup'],
+        'dev': ['jupyter~=1.0.0', 'streamlit~=0.50.2', 'ipymarkup~=0.5.0'],
     },
     classifiers=[
         "Programming Language :: Python :: 3",

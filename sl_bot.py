@@ -22,11 +22,6 @@ def sidebar(sender):
 
 DEFAULT_TEXT = '感觉发烧了，该去哪个诊所哪个科室呢'
 
-def parse(sents):
-    response = requests.post(f'http://localhost:5005/model/parse', json={'text': sents})
-    print('status code:', response.status_code)
-    return response.json()
-
 def talk(sents, sender='default'):
     response = requests.post(f'http://localhost:5005/webhooks/rest/webhook', json={'message': sents, 'sender':sender})
     print('status code:', response.status_code)
@@ -34,7 +29,9 @@ def talk(sents, sender='default'):
 
 def nlu_vis(sents):
     from ipymarkup import box_markup
-    result=parse(sents)
+    from saai.tool import rasa_nlu_parse
+
+    result=rasa_nlu_parse(sents)
     ents = result['entities']
     spans = [(w['start'], w['end'], w['entity']) for w in ents]
     markup = box_markup(sents, spans)
