@@ -1,3 +1,16 @@
 language: "fr"
 
-pipeline: "supervised_embeddings"
+pipeline:
+- name: "WhitespaceTokenizer"
+- name: "saai.ner_facade.FacadeEntityExtractor"
+  route: "spacy/fr"
+- name: "RegexFeaturizer"
+- name: "CRFEntityExtractor"
+- name: "EntitySynonymMapper"
+- name: "CountVectorsFeaturizer"
+- name: "EmbeddingIntentClassifier"
+- name: "DucklingHTTPExtractor"
+  url: "http://samlet:8000"
+  locale: "fr_Nothing"
+
+

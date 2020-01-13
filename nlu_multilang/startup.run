@@ -50,7 +50,15 @@ else
 		else
 			echo "use: start nlu <lang> <port>"
 		fi		
-		;;	
+		;;
+	"shell")
+	    if [ $# -gt 1 ]; then
+			lang=$2
+			$rasa shell -m models/${lang}_current.tar.gz nlu
+		else
+			echo "use: start shell <lang>"
+		fi
+	    ;;
 	"train_de")
 		# $python -m rasa_nlu.train \
 		#     --config config_de.yml \
