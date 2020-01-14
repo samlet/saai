@@ -8,6 +8,11 @@ function start_inventory(){
 	start_docker inventory "$msg_mysql"
 }
 
+python="$HOME/miniconda3/envs/rasa/bin/python"
+jupyter="$HOME/miniconda3/envs/rasa/bin/jupyter"
+streamlit="$HOME/miniconda3/envs/rasa/bin/streamlit"
+rasa="$HOME/miniconda3/envs/rasa/bin/rasa"
+
 # startup 
 if [ $# -lt 1 ]; then	
 	echo "available opts: all, zk, storm, repl, ..."
