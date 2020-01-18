@@ -21,5 +21,9 @@ intents:
       *behave_purpose
     examples:
       - Dia datang ke Shanghai untuk menjumpai adiknya.
-  
 
+  perception:
+    rules:
+      v1: verb(behaveof('perception', 'n'), acl=matchins('apa'))
+    examples:
+      - Bau apa itu?
