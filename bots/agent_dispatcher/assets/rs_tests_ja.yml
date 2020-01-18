@@ -1,0 +1,23 @@
+package: common
+lang: ja
+
+rules_1: &defaults
+    f1: subj('adj', ガ=kindof('artifact', 'n'))
+    f2: subj('adj', ガ=kindof('object', 'n'))
+rules_2: &targets
+    animal: verb(behaveof('protect', 'v'), head_acl=kindof('animal', 'n'), nsubj_pass=matchins('yang'))
+
+intents:
+  describe_object:
+    rules:
+      <<: *defaults
+      <<: *targets
+    examples:
+      - 彼のパソコンは便利じゃない。
+
+  describe_artifact:
+    rules:
+      *defaults
+    examples:
+      - 彼の。
+
