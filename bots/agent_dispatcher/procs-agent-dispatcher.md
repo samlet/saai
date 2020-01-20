@@ -6,6 +6,7 @@ $ python -m sagas.kit.rulesets_kit execute ./assets/rs_tests_ja.yml describe_obj
 
 $ sagas ruleset 'Dia datang ke Shanghai untuk menjumpai adiknya.' purpose id True
 $ sagas examples perception id True
+$ sagas examples food en True
 
 $ .env.sh
 $ ses 'Este juego es facilísimo.'
