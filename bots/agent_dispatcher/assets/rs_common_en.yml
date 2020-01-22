@@ -10,18 +10,6 @@ behave_purpose: &behave_purpose
   v1: verb(behaveof('arrive', 'v'), nsubj=agency, xcomp='c_verb', obl=agency, )
 
 intents:
-  move_unable:
-    rules:
-      v1: verb(behaveof('move', 'v'), advmod=negative())
-    examples:
-      - Lemari besar itu tidak terangkat.
-
-  purpose:
-    rules:
-      *behave_purpose
-    examples:
-      - Dia datang ke Shanghai untuk menjumpai adiknya.
-  
   food:
     rules:
       r1: root(obl=ci.cust_ents('cuisine'))

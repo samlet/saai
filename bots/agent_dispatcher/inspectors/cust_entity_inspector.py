@@ -66,7 +66,10 @@ class CustEntityInspector(Inspector):
         idx_ent = {el['index']: el['entity'] for el in get_entity_mapping(sents, doc, ents)}
         children_ents = [(idx, idx_ent[idx] if idx in idx_ent else '_') for idx in indexes]
 
-        return self.test_ent in {e[1] for e in children_ents}
+        result= self.test_ent in {e[1] for e in children_ents}
+        if result:
+            ctx.add_result(self.name(), 'default', key, idx_ent)
+        return result
 
     def __str__(self):
         return f"ins_{self.name()}({self.test_ent})"

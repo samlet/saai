@@ -51,14 +51,14 @@ class SaaiBotCli(object):
         print('status code:', response.status_code)
         pprint(response.json())
 
-    def talk(self, sents, sender='default'):
+    def talk(self, sents, sender='default', port=5005):
         """
-        $ saai talk 'hello'
+        $ saai talk 'hello' samlet 15008
 
         :param sender:
         :return:
         """
-        response = requests.post(f'http://localhost:5005/webhooks/rest/webhook',
+        response = requests.post(f'http://localhost:{port}/webhooks/rest/webhook',
                                  json={'message': sents, 'sender':sender})
         print('status code:', response.status_code)
         pprint(response.json())
