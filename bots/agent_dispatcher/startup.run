@@ -1,0 +1,32 @@
+#!/bin/bash
+. /pi/bin/inc/wait_funcs.sh
+. /pi/bin/inc/matchers.sh
+. /pi/bin/inc/docker_utils.sh
+
+function start_inventory(){
+	# mysqld: ready for connections.
+	start_docker inventory "$msg_mysql"
+}
+
+# startup 
+if [ $# -lt 1 ]; then	
+	echo "available opts: all, zk, storm, repl, ..."
+else
+	CMD=$1
+	case "$CMD" in
+	"redis")
+		start_docker redis "$msg_redis"
+		;;
+	"inventory")
+		start_inventory
+		;;
+	"servant")
+	    python -m servants.avatar_servant run 1701 False
+	    ;;
+	*)
+		# default proc
+		handle_cmd ${@:1}
+		;;
+	esac
+fi
+
