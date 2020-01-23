@@ -23,6 +23,9 @@ async def handle_event(request, lang):
     $ curl -s -d '{"sents":"how about north eastern food?"}' \
         -H "Content-Type: application/json" -X POST \
         localhost:1701/info/event/en | json
+    $ curl -s -d '{"sents":"you took sixty damage"}' \
+        -H "Content-Type: application/json" -X POST \
+        localhost:1701/info/event/en | json
     :param request:
     :param lang:
     :return:

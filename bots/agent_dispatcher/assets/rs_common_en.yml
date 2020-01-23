@@ -16,3 +16,15 @@ intents:
     examples:
       - how about north eastern food
 
+  injured:
+    rules:
+      r1: verb(behaveof('take', 'v'), pred_any_path('obj', 'damage', 'n'), obj=dateins('number'))
+    examples:
+      - you took fifty damage
+
+  dead:
+    rules:
+      r1: cop(behaveof('dead', 'a'), nsubj=agency, cop='c_aux')
+    examples:
+      - you are dead
+
