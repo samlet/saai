@@ -7,12 +7,12 @@ rules_verb: &defaults
 rules_aux: &targets
   a1: aux('adj', nsubj=agency, cop='c_aux')
 behave_purpose: &behave_purpose
-  v1: verb(behaveof('arrive', 'v'), nsubj=agency, xcomp='c_verb', obl=agency, )
+  v4: verb(behaveof('arrive', 'v'), nsubj=agency, xcomp='c_verb', obl=agency, )
 
 intents:
   move_unable:
     rules:
-      v1: verb(behaveof('move', 'v'), advmod=negative())      
+      v5: verb(behaveof('move', 'v'), advmod=negative())
     examples:
       - Lemari besar itu tidak terangkat.
 
@@ -24,6 +24,6 @@ intents:
 
   perception:
     rules:
-      v1: verb(behaveof('perception', 'n'), acl=matchins('apa'))
+      v5: verb(behaveof('perception', 'n'), acl=matchins('apa'))
     examples:
       - Bau apa itu?
