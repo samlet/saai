@@ -1,17 +1,11 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/core/actions/#custom-actions/
-
-
-# This is a simple example for a custom action which utters "Hello World!"
-
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
+from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
-
+import json
+import logging
+logger = logging.getLogger(__name__)
 
 class ActionHelloWorld(Action):
 
@@ -27,3 +21,19 @@ class ActionHelloWorld(Action):
         return []
 
 
+class ActionPerformMedia(Action):
+    def name(self):
+        return "action_perform_media"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        logging.info(json.dumps(tracker.current_slot_values(), indent=2, ensure_ascii=False))
+        prop = lambda attr: tracker.get_slot(attr) if attr in tracker.slots else ''
+        object_type=tracker.get_slot('object_type')
+        dispatcher.utter_message(json_message={'result': 'success',
+                                               'media_list': ['first song', 'second song'],
+                                               'media_type': object_type,
+                                               'sents': prop('sents')})
+        # return [SlotSet("media_type", object_type)]
+        return []

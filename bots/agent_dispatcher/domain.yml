@@ -6,14 +6,37 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - ask_perform_media:
+      triggers: action_perform_media
 
 actions:
-- utter_greet
-- utter_cheer_up
-- utter_did_that_help
-- utter_happy
-- utter_goodbye
-- utter_iamabot
+  - utter_greet
+  - utter_cheer_up
+  - utter_did_that_help
+  - utter_happy
+  - utter_goodbye
+  - utter_iamabot
+  - action_perform_media
+
+entities:
+  - object_type
+  - mention
+  - attribute
+  - sents
+
+slots:
+  attribute:
+    type: unfeaturized
+  mention:
+    type: unfeaturized
+  object:
+    type: unfeaturized
+  object_type:
+    type: unfeaturized
+  parameters:
+    type: unfeaturized
+  sents:
+    type: unfeaturized
 
 templates:
   utter_greet:

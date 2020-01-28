@@ -60,11 +60,11 @@ class ActionPerformMedia(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker:Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        dump_slots(tracker)
+        logging.info(json.dumps(tracker.current_slot_values(), indent=2, ensure_ascii=False))
+        prop=lambda attr: tracker.get_slot(attr) if attr in tracker.slots else ''
         dispatcher.utter_message(json_message={'result': 'success',
                                                'media_list': ['first song', 'second song'],
                                                'media_type': tracker.get_slot('object_type'),
-                                               'sents':prop(tracker, 'sents')})
-        return [UserUtteranceReverted()]
+                                               'sents':prop('sents')})
+        return []
 
