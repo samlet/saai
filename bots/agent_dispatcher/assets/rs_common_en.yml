@@ -28,3 +28,8 @@ intents:
     examples:
       - you are dead
 
+  list_products:
+    rules:
+      v5: verb(behaveof('enumerate', 'v'), obj=kindof('product/artifact', 'n'))
+    examples:
+      - list some products

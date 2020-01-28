@@ -14,8 +14,9 @@ async def ping(request):
     """
     return json({"hello": "world"})
 
-def invoke_vari(sents):
-    url='http://localhost:5005'
+def invoke_vari(sents, port=5009):
+    # url='http://localhost:5005'
+    url = f'http://localhost:{port}/nlu/en'
     response = requests.post(f'{url}/model/parse', json={'text': sents})
     print('status code:', response.status_code)
     return response.json()

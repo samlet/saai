@@ -8,6 +8,8 @@ intents:
   - bot_challenge
   - ask_perform_media:
       triggers: action_perform_media
+  - list_products:
+      triggers: action_list_products
 
 actions:
   - utter_greet
@@ -17,6 +19,7 @@ actions:
   - utter_goodbye
   - utter_iamabot
   - action_perform_media
+  - action_list_products
 
 entities:
   - object_type

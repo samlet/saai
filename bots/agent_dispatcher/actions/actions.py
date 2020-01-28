@@ -37,3 +37,23 @@ class ActionPerformMedia(Action):
                                                'sents': prop('sents')})
         # return [SlotSet("media_type", object_type)]
         return []
+
+
+class ActionListProducts(Action):
+    def name(self):
+        return "action_list_products"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        logger.info(json.dumps(tracker.current_slot_values(), indent=2, ensure_ascii=False))
+
+        entities = tracker.latest_message.get("entities", [])
+        entity_type='verb_domains'
+        additional_info=next(x.get("additional_info") for x in entities if x.get("entity") == entity_type)
+        logger.info(json.dumps(additional_info, indent=2, ensure_ascii=False))
+
+        dispatcher.utter_message(json_message={'result': 'success',
+                                               'product_list': ['first prod', 'second prod'],
+                                               })
+        return []

@@ -11,7 +11,10 @@
 # https://rasa.com/docs/rasa/core/actions/#custom-actions/
 
 action_endpoint:
- url: "http://localhost:5055/webhook"
+ url: "http://localhost:5077/webhook"
+
+nlu:
+  url: "http://localhost:1702/nlu/en"
 
 # Tracker store which is used to store the conversations.
 # By default the conversations are stored in memory.

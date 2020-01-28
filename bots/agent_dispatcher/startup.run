@@ -8,6 +8,8 @@ function start_inventory(){
 	start_docker inventory "$msg_mysql"
 }
 
+rasa="$HOME/miniconda3/envs/rasa/bin/rasa"
+
 # startup 
 if [ $# -lt 1 ]; then	
 	echo "available opts: all, zk, storm, repl, ..."
@@ -22,6 +24,15 @@ else
 		;;
 	"servant")
 	    python -m servants.avatar_servant run 1701 False
+	    ;;
+	"servant_nlu")
+	    python -m servants.nlu_dispatcher run 1702 False
+	    ;;
+    "agent")
+        $rasa run --enable-api -v
+        ;;
+	"actions")
+	    $rasa run actions -p 5077
 	    ;;
 	*)
 		# default proc
