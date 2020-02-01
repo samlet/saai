@@ -22,6 +22,11 @@ else
 	"inventory")
 		start_inventory
 		;;
+	"duckling")
+		target_dir="$HOME/jcloud/assets/langs/workspace/data-procs/duckling/duckling"
+		# https://github.com/facebook/duckling/issues/85
+		cd $target_dir ; stack exec duckling-example-exe -- -p 8000
+		;;
 	"servant")
 	    python -m servants.avatar_servant run 1701 False
 	    ;;

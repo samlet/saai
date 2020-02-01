@@ -1,9 +1,9 @@
 #!/bin/bash
-#honcho="$HOME/miniconda3/envs/bigdata/bin/honcho"
-honcho='foreman'  # forman support .env file
+honcho="$HOME/miniconda3/envs/rasa/bin/honcho"
+#honcho='foreman'  # forman support .env file
 alias s1="$honcho start"
 # alias s2='foreman start -f Procfile_langs'
-alias s2="$honcho start -f Procfile_langs"
+alias s2="$honcho start -f Procfile_mod"
 # alias s3="$honcho start -f Procfile_api"
 alias s3="python -m sagas.api.info_stack run 1700 False"
 alias s4="python -m sagas.api.info_stack run 1700 True"

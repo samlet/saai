@@ -33,3 +33,9 @@ intents:
       v5: verb(behaveof('enumerate', 'v'), obj=kindof('product/artifact', 'n'))
     examples:
       - list some products
+
+  birth:
+    rules:
+      v5: verb(nsubj_pass=agency, obl=dateins('time'))
+    examples:
+      - I was born in the spring of 1982.
