@@ -3,6 +3,8 @@ from sagas.nlu.inspector_common import Inspector, Context
 import logging
 logger = logging.getLogger(__name__)
 
+# 代码整理自notebook: procs-rasa-entity-iob.ipynb
+
 def get_entities(sents:Text):
     from saai.tool import rasa_nlu_parse
     result = rasa_nlu_parse(sents, 'http://localhost:15008')
@@ -39,6 +41,9 @@ def get_children_index(sent, word_idx):
 
 
 class CustEntityInspector(Inspector):
+    """
+    Inspector是所有inspector的基类
+    """
     def __init__(self, test_ent):
         # self.arg = arg
         self.test_ent=test_ent

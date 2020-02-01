@@ -6,5 +6,5 @@ out/
 dist/
 build/
 *.egg-info
-
+*.pyc
 

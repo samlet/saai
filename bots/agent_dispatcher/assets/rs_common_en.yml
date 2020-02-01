@@ -12,7 +12,7 @@ behave_purpose: &behave_purpose
 intents:
   food:
     rules:
-      r4: root(obl=ci.cust_ents('cuisine'))
+      r5: root(obl=ci.cust_ents('cuisine'))
     examples:
       - how about north eastern food
 
