@@ -39,11 +39,17 @@ class ActionPerformMedia(Action):
         return []
 
 
-def dump_ents_info(tracker):
+def dump_ents_info(tracker, entity_type='verb_domains', closure=None):
     entities = tracker.latest_message.get("entities", [])
-    entity_type = 'verb_domains'
+    # entity_type = 'verb_domains'
     additional_info = next(x.get("additional_info") for x in entities if x.get("entity") == entity_type)
     logger.info(json.dumps(additional_info, indent=2, ensure_ascii=False))
+    inspectors=[(ins['inspector'], ins['provider']) for ins in additional_info]
+    logger.info(f".. inspectors: {inspectors}")
+    # return additional_info
+    if closure is not None:
+        closure(additional_info)
+
 
 class ActionListProducts(Action):
     def name(self):
@@ -75,6 +81,32 @@ class ActionDumpInfo(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         logger.info(f".. dump from action {self.name()}")
         dump_ents_info(tracker)
+
+        dispatcher.utter_message(json_message={'result': 'success',})
+        return []
+
+
+def proc_additional_info(additional_info):
+    from sagas.nlu.content_representers import content_reprs
+    print('-'*25)
+    print('.....', additional_info)
+    for ins in additional_info:
+        print(f".. {ins['inspector']}")
+        # if ins['inspector']=='ins_date' and ins['provider']=='duckling':
+        if ins['inspector'] == 'ins_date':
+            content_reprs['duckling'](ins['value'])
+
+class ActionDateAndTime(Action):
+    def name(self):
+        return "action_date_and_time"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+
+        logger.info(f".. dump from action {self.name()}")
+        dump_ents_info(tracker, entity_type = 'root_domains', closure=proc_additional_info)
 
         dispatcher.utter_message(json_message={'result': 'success',})
         return []

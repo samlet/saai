@@ -14,6 +14,8 @@ intents:
       triggers: action_dump_info
   - birth:
       triggers: action_dump_info
+  - date_and_time:
+      triggers: action_date_and_time
 
 actions:
   - utter_greet
@@ -25,6 +27,7 @@ actions:
   - action_perform_media
   - action_list_products
   - action_dump_info
+  - action_date_and_time
 
 entities:
   - object_type

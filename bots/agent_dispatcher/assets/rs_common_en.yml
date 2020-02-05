@@ -39,3 +39,9 @@ intents:
       v5: verb(nsubj_pass=agency, obl=dateins('time'))
     examples:
       - I was born in the spring of 1982.
+
+  date_and_time:
+    rules:
+      r2: entire(dateins('time', entire=True))
+    examples:
+      - the last Tuesday of October 2012
