@@ -10,6 +10,10 @@ intents:
       triggers: action_perform_media
   - list_products:
       triggers: action_list_products
+  - dump_info:
+      triggers: action_dump_info
+  - birth:
+      triggers: action_dump_info
 
 actions:
   - utter_greet
@@ -20,6 +24,7 @@ actions:
   - utter_iamabot
   - action_perform_media
   - action_list_products
+  - action_dump_info
 
 entities:
   - object_type

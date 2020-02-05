@@ -39,6 +39,12 @@ class ActionPerformMedia(Action):
         return []
 
 
+def dump_ents_info(tracker):
+    entities = tracker.latest_message.get("entities", [])
+    entity_type = 'verb_domains'
+    additional_info = next(x.get("additional_info") for x in entities if x.get("entity") == entity_type)
+    logger.info(json.dumps(additional_info, indent=2, ensure_ascii=False))
+
 class ActionListProducts(Action):
     def name(self):
         return "action_list_products"
@@ -48,12 +54,28 @@ class ActionListProducts(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         logger.info(json.dumps(tracker.current_slot_values(), indent=2, ensure_ascii=False))
 
-        entities = tracker.latest_message.get("entities", [])
-        entity_type='verb_domains'
-        additional_info=next(x.get("additional_info") for x in entities if x.get("entity") == entity_type)
-        logger.info(json.dumps(additional_info, indent=2, ensure_ascii=False))
+        # entities = tracker.latest_message.get("entities", [])
+        # entity_type='verb_domains'
+        # additional_info=next(x.get("additional_info") for x in entities if x.get("entity") == entity_type)
+        # logger.info(json.dumps(additional_info, indent=2, ensure_ascii=False))
+        dump_ents_info(tracker)
 
         dispatcher.utter_message(json_message={'result': 'success',
                                                'product_list': ['first prod', 'second prod'],
                                                })
         return []
+
+
+class ActionDumpInfo(Action):
+    def name(self):
+        return "action_dump_info"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        logger.info(f".. dump from action {self.name()}")
+        dump_ents_info(tracker)
+
+        dispatcher.utter_message(json_message={'result': 'success',})
+        return []
+

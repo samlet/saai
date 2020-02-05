@@ -15,5 +15,57 @@ $ .env.sh
 $ ses 'Este juego es facilísimo.'
 ```
 
++ dump additional info
 
+```bash
+$ honcho start
+$ honcho start -f Procfile_mod
+$ python -m cli.dispatcher_cli dump 'I was born in the summer of 1999.'
+```
+
+后台的action_dump_info会输出:
+
+```
+15:16:14 actions.1    | 2020-02-05 15:16:14 INFO     actions.actions  - [
+15:16:14 actions.1    |   {
+15:16:14 actions.1    |     "inspector": "ins_date",
+15:16:14 actions.1    |     "provider": "duckling",
+15:16:14 actions.1    |     "part": "obl",
+15:16:14 actions.1    |     "value": [
+15:16:14 actions.1    |       {
+15:16:14 actions.1    |         "body": "summer of 1999",
+15:16:14 actions.1    |         "start": 7,
+15:16:14 actions.1    |         "value": {
+15:16:14 actions.1    |           "values": [
+15:16:14 actions.1    |             {
+15:16:14 actions.1    |               "to": {
+15:16:14 actions.1    |                 "value": "1999-09-24T00:00:00.000-07:00",
+15:16:14 actions.1    |                 "grain": "day"
+15:16:14 actions.1    |               },
+15:16:14 actions.1    |               "from": {
+15:16:14 actions.1    |                 "value": "1999-06-21T00:00:00.000-07:00",
+15:16:14 actions.1    |                 "grain": "day"
+15:16:14 actions.1    |               },
+15:16:14 actions.1    |               "type": "interval"
+15:16:14 actions.1    |             }
+15:16:14 actions.1    |           ],
+15:16:14 actions.1    |           "to": {
+15:16:14 actions.1    |             "value": "1999-09-24T00:00:00.000-07:00",
+15:16:14 actions.1    |             "grain": "day"
+15:16:14 actions.1    |           },
+15:16:14 actions.1    |           "from": {
+15:16:14 actions.1    |             "value": "1999-06-21T00:00:00.000-07:00",
+15:16:14 actions.1    |             "grain": "day"
+15:16:14 actions.1    |           },
+15:16:14 actions.1    |           "type": "interval"
+15:16:14 actions.1    |         },
+15:16:14 actions.1    |         "end": 21,
+15:16:14 actions.1    |         "dim": "time",
+15:16:14 actions.1    |         "latent": false
+15:16:14 actions.1    |       }
+15:16:14 actions.1    |     ],
+15:16:14 actions.1    |     "delivery": "slot"
+15:16:14 actions.1    |   }
+15:16:14 actions.1    | ]
+```
 
