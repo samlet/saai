@@ -9,6 +9,8 @@ function start_inventory(){
 }
 
 rasa="$HOME/miniconda3/envs/rasa/bin/rasa"
+jupyter="$HOME/miniconda3/envs/rasa/bin/jupyter"
+streamlit="$HOME/miniconda3/envs/rasa/bin/streamlit"
 
 # startup 
 if [ $# -lt 1 ]; then	
@@ -21,6 +23,9 @@ else
 		;;
 	"inventory")
 		start_inventory
+		;;
+	"note")
+		$jupyter notebook
 		;;
 	"duckling")
 		target_dir="$HOME/jcloud/assets/langs/workspace/data-procs/duckling/duckling"
