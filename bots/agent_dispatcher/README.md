@@ -19,6 +19,9 @@ $ ses 'Este juego es facilísimo.'
 
 ```bash
 $ honcho start
+# 如果没有编译duckling, 可以使用docker版本, 并从Procfile中删除duckling的启动行,
+# 在一个单独的控制台上执行以下命令:
+# docker run -it -p 8000:8000 rasa/duckling
 $ honcho start -f Procfile_mod
 $ python -m cli.dispatcher_cli dump 'I was born in the summer of 1999.'
 ```

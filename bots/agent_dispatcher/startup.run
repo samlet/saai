@@ -1,7 +1,7 @@
 #!/bin/bash
-. /pi/bin/inc/wait_funcs.sh
-. /pi/bin/inc/matchers.sh
-. /pi/bin/inc/docker_utils.sh
+#. /pi/bin/inc/wait_funcs.sh
+#. /pi/bin/inc/matchers.sh
+#. /pi/bin/inc/docker_utils.sh
 
 function start_inventory(){
 	# mysqld: ready for connections.
