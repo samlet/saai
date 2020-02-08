@@ -1,0 +1,2 @@
+agent: $rasa run --enable-api -v
+dispatcher: $python -m servants.nlu_dispatcher run 1702 False

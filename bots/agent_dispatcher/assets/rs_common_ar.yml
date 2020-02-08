@@ -1,0 +1,9 @@
+package: common
+lang: ar
+
+intents:
+  date_and_time:
+    rules:
+      r2: entire(dateins('time', entire=True))
+    examples:
+
