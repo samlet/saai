@@ -20,13 +20,11 @@ nlu:
 # By default the conversations are stored in memory.
 # https://rasa.com/docs/rasa/api/tracker-stores/
 
-#tracker_store:
-#    type: redis
-#    url: <host of the redis instance, e.g. localhost>
-#    port: <port of your redis instance, usually 6379>
-#    db: <number of your database within redis, e.g. 0>
-#    password: <password used for authentication>
-#    use_ssl: <whether or not the communication is encrypted, default false>
+tracker_store:
+    type: redis
+    url: localhost
+    port: 6379
+    db: 0
 
 #tracker_store:
 #    type: mongod
