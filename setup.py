@@ -14,6 +14,7 @@ with open("README.md", "r") as fh:
 
 # What packages are required for this module to be executed?
 REQUIRED = [
+    "colorlog",
     "jieba~=0.40",
     "simplejson",
     "paddlepaddle-tiny~=1.6.1",

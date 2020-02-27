@@ -32,6 +32,10 @@ else
 		# https://github.com/facebook/duckling/issues/85
 		cd $target_dir ; stack exec duckling-example-exe -- -p 8000
 		;;
+	"ruleprocs")
+		proj_root="$HOME/jcloud/vagrant/sagas/projs/ruleprocs"
+		cd $proj_root ; mvn package -DskipTests && java -cp target/ruleprocs-1.0-SNAPSHOT-runner.jar:target/lib/* sagas.rules.ApplicaEntryPoint
+		;;
 	"servant")
 	    python -m servants.avatar_servant run 1701 False
 	    ;;
