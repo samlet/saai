@@ -42,13 +42,16 @@ class ActionPerformMedia(Action):
 def dump_ents_info(tracker, entity_type='verb_domains', closure=None):
     entities = tracker.latest_message.get("entities", [])
     # entity_type = 'verb_domains'
-    additional_info = next(x.get("additional_info") for x in entities if x.get("entity") == entity_type)
-    logger.info(json.dumps(additional_info, indent=2, ensure_ascii=False))
-    inspectors=[(ins['inspector'], ins['provider']) for ins in additional_info]
-    logger.info(f".. inspectors: {inspectors}")
-    # return additional_info
-    if closure is not None:
-        closure(additional_info)
+    # additional_info = next(x.get("additional_info") for x in entities if x.get("entity") == entity_type)
+    additional_infos = [x.get("additional_info") for x in entities if x.get("entity") == entity_type]
+    if additional_infos:
+        additional_info=additional_infos[0]
+        logger.info(json.dumps(additional_info, indent=2, ensure_ascii=False))
+        inspectors=[(ins['inspector'], ins['provider']) for ins in additional_info]
+        logger.info(f".. inspectors: {inspectors}")
+        # return additional_info
+        if closure is not None:
+            closure(additional_info)
 
 
 class ActionListProducts(Action):

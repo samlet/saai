@@ -31,6 +31,7 @@ actions:
 
 entities:
   - object_type
+  - object
   - mention
   - attribute
   - sents
@@ -47,6 +48,14 @@ slots:
   parameters:
     type: unfeaturized
   sents:
+    type: unfeaturized
+  from:
+    type: unfeaturized
+  to:
+    type: unfeaturized
+  transport_cat:
+    type: unfeaturized
+  transport_name:
     type: unfeaturized
 
 templates:
