@@ -34,7 +34,8 @@ else
 		;;
 	"ruleprocs")
 		proj_root="$HOME/jcloud/vagrant/sagas/projs/ruleprocs"
-		cd $proj_root ; mvn package -DskipTests && java -cp target/ruleprocs-1.0-SNAPSHOT-runner.jar:target/lib/* sagas.rules.ApplicaEntryPoint
+		# cd $proj_root ; mvn package -DskipTests && java -cp target/ruleprocs-1.0-SNAPSHOT-runner.jar:target/lib/* sagas.rules.ApplicaEntryPoint
+		cd $proj_root ; ./startup.run servant
 		;;
 	"servant")
 	    python -m servants.avatar_servant run 1701 False
