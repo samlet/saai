@@ -1,0 +1,17 @@
+servant_de: $python -m sagas.nlu.parse_servant dev
+servant_zh: $ltp_env -m sagas.nlu.parse_servant run 14005
+servant_ja: $python -m sagas.nlu.parse_servant run 14006
+servant_western: $python -m sagas.nlu.parse_servant run 14007
+words: $python -m sagas.nlu.words_servant
+duckling: ./startup.run duckling
+servant_nlu: $python -m sagas.nlu.nlu_servant
+servant_spacy: $python -m sagas.nlu.parse_servant run 14001
+servant_spacy_22: $cv_env -m sagas.nlu.parse_servant run 14002
+info_stack: $python -m sagas.api.info_stack run 1700 False
+agent_servant: $python -m saai.agent_servant app
+nlu_multilang: $python -m saai.multi_nlu_servant
+ruleprocs: ./startup.run ruleprocs
+
+agent: $rasa run --enable-api -v
+actions: $rasa run actions -p 5077
+dispatcher: $python -m servants.nlu_dispatcher run 1702 False

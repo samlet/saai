@@ -5,6 +5,7 @@ alias s1="$honcho start"
 # alias s2='foreman start -f Procfile_langs'
 alias s2="$honcho start -f Procfile_mod"
 alias s3="$honcho start -f Procfile_agent"
+alias s11="$honcho start -f Procfile_all"
 
 alias s5="python -m sagas.api.info_stack run 1700 False"
 alias s6="python -m sagas.api.info_stack run 1700 True"
