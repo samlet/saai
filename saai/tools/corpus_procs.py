@@ -132,10 +132,10 @@ class CorpusProcs(object):
 
         logger.info(f".. write to {output} ok.")
 
-    def gen_datasets(self, lang_prefix='cn', target_prefix='/pi/ws/sagas-ai/nlu_multilang/zh/'):
+    def gen_datasets(self, lang_prefix='cn', target_prefix=f'{cf.conf_dir}/ws/sagas-ai/nlu_multilang/zh/'):
         import glob
         import os
-        prefix='/pi/ws/sagas-ai/nlu_multilang'
+        prefix=f'{cf.conf_dir}/ws/sagas-ai/nlu_multilang'
         trans_files = [(x, target_prefix + os.path.basename(x).replace('.md', '.json')) for x in
                        glob.glob(f'{prefix}/corpus/{lang_prefix}-*.md')]
         for f in trans_files:

@@ -11,6 +11,7 @@ from rasa.core.agent import Agent
 from rasa.core.interpreter import RasaNLUInterpreter
 from rasa.model import get_model, get_latest_model
 from rasa.core.channels.channel import UserMessage
+from sagas.conf.conf import cf
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +31,7 @@ class BotsConf(object):
         # self.config_file=conf_data['config_file']
 
         self.templates_dir=f'{saai_conf.runtime_dir}/templates'
-        self.ruleset_files='/pi/stack/conf/ruleset_*.json'
+        self.ruleset_files=f'{cf.conf_dir}/stack/conf/ruleset_*.json'
 
     def get_loc(self, bot:Text):
         return self.config.get(bot).location

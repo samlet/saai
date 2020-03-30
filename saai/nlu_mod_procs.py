@@ -1,8 +1,9 @@
 import json
 import json_utils
 import sagas.tracker_fn as tc
+from sagas.conf.conf import cf
 
-prefix = '/pi/ws/sagas-ai/nlu_multilang'
+prefix = f'{cf.conf_dir}/ws/sagas-ai/nlu_multilang'
 def train_mod(lang):
     from rasa.train import train_nlu, train_async
     from saai.tools.corpus_procs import CorpusProcs

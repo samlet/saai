@@ -1,5 +1,6 @@
 from rasa.importers.utils import training_data_from_paths
 import sagas.tracker_fn as tc
+from sagas.conf.conf import cf
 
 class NluDataProcs(object):
     def view_file(self, file, lang='en'):
@@ -31,7 +32,7 @@ class NluDataProcs(object):
 
     def train(self):
         from rasa.train import train_nlu
-        prefix = '/pi/ws/sagas-ai/nlu_multilang'
+        prefix = f'{cf.conf_dir}/ws/sagas-ai/nlu_multilang'
         train_nlu(
             config=f"{prefix}/config_en.yml",
             nlu_data=f"{prefix}/en/",
