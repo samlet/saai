@@ -3,6 +3,7 @@ import json
 import json_utils
 import io
 import logging
+from sagas.conf.conf import cf
 
 logger = logging.getLogger(__name__)
 
@@ -132,10 +133,13 @@ class CorpusProcs(object):
 
         logger.info(f".. write to {output} ok.")
 
-    def gen_datasets(self, lang_prefix='cn', target_prefix=f'{cf.conf_dir}/ws/sagas-ai/nlu_multilang/zh/'):
+    def gen_datasets(self, lang_prefix='cn',
+                     target_prefix=f'{cf.conf_dir}/ws/sagas-ai/nlu_multilang/zh/'):
         import glob
         import os
+        from os.path import expanduser
         prefix=f'{cf.conf_dir}/ws/sagas-ai/nlu_multilang'
+        target_prefix=expanduser(target_prefix)
         trans_files = [(x, target_prefix + os.path.basename(x).replace('.md', '.json')) for x in
                        glob.glob(f'{prefix}/corpus/{lang_prefix}-*.md')]
         for f in trans_files:

@@ -71,11 +71,11 @@ else
 	"train_zh")
 	    # $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/cn-Samples_issue.md zh/cn-Samples.json
         # $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/cn-ConcertBot.md zh/cn-ConcertBot.json
-        $python -m saai.tools.corpus_procs gen_datasets cn '/pi/ws/sagas-ai/nlu_multilang/zh/'
+        $python -m saai.tools.corpus_procs gen_datasets cn '~/pi/ws/sagas-ai/nlu_multilang/zh/'
         train zh
 	    ;;
 	"train_jieba")
-	    $python -m saai.tools.corpus_procs gen_datasets cn '/pi/ws/sagas-ai/nlu_multilang/zh_jieba/'
+	    $python -m saai.tools.corpus_procs gen_datasets cn '~/pi/ws/sagas-ai/nlu_multilang/zh_jieba/'
 	    $rasa train nlu \
 		    --config config_zh_jieba.yml \
 		    --nlu zh_jieba/ \
@@ -85,7 +85,7 @@ else
 	    $rasa run --enable-api -m models/zh_jieba_current.tar.gz -p 5566
 	    ;;
 	"prepare_ja")
-	    $python -m saai.tools.corpus_procs gen_datasets ja '/pi/ws/sagas-ai/nlu_multilang/ja/'
+	    $python -m saai.tools.corpus_procs gen_datasets ja '~/pi/ws/sagas-ai/nlu_multilang/ja/'
 	    ;;
 	"train_ja")
 	    # $python -m sagas.bots.tools.corpus_procs gen_dataset corpus/ja-Samples.md ja/ja-Samples.json
