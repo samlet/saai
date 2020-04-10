@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 class Rules_es(LangSpecBase):
     @staticmethod
     def prepare(meta: Dict[Text, Any]):
-        tc.emp('yellow', '.. Rules_en prepare phrase')
+        tc.emp('yellow', '.. Rules_es prepare phrase')
 
     def verb_rules(self):
         pat, actions_obj = (self.pat, self.actions_obj)
@@ -36,7 +36,6 @@ class Rules_es(LangSpecBase):
         ])
 
     def execute(self):
-        if len(self.matched) > 0:
-            matched_info = {k: len(v.results) for k, v in self.matched.items()}
-            tc.emp('green', f"♯ matched id rules: {matched_info}")
+        super().execute()
+
 

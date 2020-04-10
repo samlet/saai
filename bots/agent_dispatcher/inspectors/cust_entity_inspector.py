@@ -1,6 +1,9 @@
 from typing import Text, Any, Dict, List
 from sagas.nlu.inspector_common import Inspector, Context
 import logging
+
+from sagas.nlu.uni_intf import SentenceIntf
+
 logger = logging.getLogger(__name__)
 
 # 代码整理自notebook: procs-rasa-entity-iob.ipynb
@@ -11,7 +14,7 @@ def get_entities(sents:Text):
     ents = result['entities']
     return ents
 
-def get_entity_mapping(sents, doc, ents):
+def get_entity_mapping(sents:Text, doc:SentenceIntf, ents):
     running_offset = 0
     rs = []
     for token in doc.words:
@@ -33,7 +36,7 @@ def get_entity_mapping(sents, doc, ents):
     return rs
 
 def get_children_index(sent, word_idx):
-    from sagas.nlu.corenlp_parser import get_children
+    from sagas.nlu.uni_parser import get_children
     rs = []
     word=next(filter(lambda w: w.index == word_idx, sent.words))
     get_children(sent, word, rs, stem=False)
