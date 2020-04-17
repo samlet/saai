@@ -1,14 +1,17 @@
 language: en
 
 pipeline:
-- name: "WhitespaceTokenizer"
-- name: "saai.ner_facade.FacadeEntityExtractor"
-  route: "spacy/en"
-- name: "RegexFeaturizer"
-- name: "CRFEntityExtractor"
-- name: "EntitySynonymMapper"
-- name: "CountVectorsFeaturizer"
-- name: "EmbeddingIntentClassifier"
-- name: "DucklingHTTPExtractor"
-  url: "http://samlet:8000"
+  - name: "WhitespaceTokenizer"
+  - name: "RegexFeaturizer"
+  - name: "LexicalSyntacticFeaturizer"
+  - name: "CountVectorsFeaturizer"
+  - name: "CountVectorsFeaturizer"
+    analyzer: "char_wb"
+    min_ngram: 1
+    max_ngram: 4
+  - name: "DIETClassifier"
+    epochs: 100
+  - name: "EntitySynonymMapper"
+  - name: "DucklingHTTPExtractor"
+    url: "http://localhost:8000"
 

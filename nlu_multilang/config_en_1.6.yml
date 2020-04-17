@@ -1,14 +1,14 @@
-language: "zh"
+language: en
 
 pipeline:
-- name: "saai.multilang_tokenizer.MultilangTokenizer"
-  lang: "zh"
+- name: "WhitespaceTokenizer"
 - name: "saai.ner_facade.FacadeEntityExtractor"
-  route: "zh/jieba"
+  route: "spacy/en"
 - name: "RegexFeaturizer"
 - name: "CRFEntityExtractor"
 - name: "EntitySynonymMapper"
 - name: "CountVectorsFeaturizer"
-- name: "DIETClassifier"
-  epochs: 100
+- name: "EmbeddingIntentClassifier"
+- name: "DucklingHTTPExtractor"
+  url: "http://samlet:8000"
 

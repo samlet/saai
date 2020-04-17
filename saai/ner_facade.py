@@ -1,12 +1,13 @@
 from typing import Any, Dict, List, Text
 
-from rasa.nlu.extractors import EntityExtractor
+# from rasa.nlu.extractors import EntityExtractor
+from rasa.nlu.extractors.extractor import EntityExtractor
 from rasa.nlu.training_data import Message
 from sagas.conf.conf import cf
 
 class FacadeEntityExtractor(EntityExtractor):
 
-    provides = ["entities"]
+    # provides = ["entities"]
     defaults = {
         # by default all dimensions recognized
         # dimensions can be configured to contain an array of strings

@@ -40,7 +40,7 @@ setuptools.setup(
                                       ]},
     install_requires=REQUIRED,
     extras_require={
-        'rasa': ['rasa~=1.6.0', 'rasa-sdk~=1.6.0'],
+        'rasa': ['rasa~=1.9.5', 'rasa-sdk~=1.9.0'],
         'dev': ['jupyter~=1.0.0', 'streamlit~=0.50.2', 'ipymarkup~=0.5.0'],
     },
     classifiers=[
