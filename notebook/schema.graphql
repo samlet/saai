@@ -1,0 +1,18 @@
+type Query {
+    building_with_id(_id: ID!): Building
+    resident_with_id(_id: ID!): Resident
+}
+
+type Building {
+    id: ID!
+    buildYear: String!
+    residents: [Resident]
+}
+
+type Resident {
+    id: ID!
+    name: String!
+    age: Int!
+    family: [Resident]
+    building: Building
+}

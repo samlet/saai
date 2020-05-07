@@ -1,0 +1,16 @@
+{
+    "buildings": [
+        {
+            "id": "1",
+            "buildYear": 2009
+        },
+        {
+            "id": "2",
+            "buildYear": 2009
+        },
+        {
+            "id": "3",
+            "buildYear": 2009
+        }
+    ]
+}
