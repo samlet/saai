@@ -1,4 +1,6 @@
 mytrain_model
 *.db
 *.png
+*.trie
+*.marisa
 
