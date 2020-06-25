@@ -3,4 +3,6 @@ mytrain_model
 *.png
 *.trie
 *.marisa
+*.out/
+
 
